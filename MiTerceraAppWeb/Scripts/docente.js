@@ -21,15 +21,6 @@ function llenarCombo(data, control, primerElemento = 1) {
     control.innerHTML = html;
 }
 
-function llenarCombobox(data) {
-    let cbocombollenar = document.getElementById('cbocombollenar');
-    if (data != null && data.length > 0) {
-        llenarCombo(data, cbocombollenar);
-    } else {
-        cbocombollenar.innerHTML = ''
-    }
-}
-
 function llenarModalidadContrato(data) {
     let cbocombollenar = document.getElementById('cboContrato');
     if (data != null && data.length > 0) {
@@ -97,10 +88,10 @@ function llenarTabla(data) {
 }
 
 
-var btnBuscarSexo = document.getElementById('btnBuscarSexo');
-btnBuscarSexo.onclick = function () {
-    var cboSexo = document.getElementById('cboSexo').value;
-    $.get("Alumno/buscarAlumnossexo?sexo=" + cboSexo, function (data) {
+var btnBuscarModalidadContrato = document.getElementById('btnBuscarModalidadContrato');
+btnBuscarModalidadContrato.onclick = function () {
+    var cboContrato = document.getElementById('cboContrato').value;
+    $.get("Docente/buscarDocenteModalidadContrato?ModalidadContrato=" + cboContrato, function (data) {
         llenarTabla(data);
     });
 }

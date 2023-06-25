@@ -57,6 +57,12 @@ namespace DConexionBase3
 			return obtenerTablaGenerico(strCadSQL);
 		}
 
+		public DataTable obtenerDocentes(int ModalidadContrato)
+		{
+			string strCadSQL = @"SELECT IIDDOCENTE as IID, * FROM Docente WHERE BHABILITADO=1 AND IIDMODALIDADCONTRATO=" + ModalidadContrato.ToString();
+			return obtenerTablaGenerico(strCadSQL);
+		}
+
 		public DataTable obtenerDocentes()
 		{
 			string strCadSQL = @"SELECT IIDDOCENTE as IID, * FROM Docente WHERE BHABILITADO=1";
