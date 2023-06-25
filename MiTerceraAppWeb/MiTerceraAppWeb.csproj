@@ -142,6 +142,7 @@
     <Compile Include="Models\Alumno.cs" />
     <Compile Include="Models\Curso.cs" />
     <Compile Include="Models\Docente.cs" />
+    <Compile Include="Models\ModalidadContrato.cs" />
     <Compile Include="Models\Periodo.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\Sexo.cs" />

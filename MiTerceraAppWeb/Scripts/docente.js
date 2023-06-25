@@ -3,6 +3,9 @@
         llenarTabla(data);
         //llenarCombobox(data);
     });
+    $.get("Docente/listarModalidadContrato", function (data) {
+        llenarModalidadContrato(data);
+    });
 }
 
 function llenarCombo(data, control, primerElemento = 1) {
@@ -27,8 +30,8 @@ function llenarCombobox(data) {
     }
 }
 
-function llenarSexo(data) {
-    let cbocombollenar = document.getElementById('cboSexo');
+function llenarModalidadContrato(data) {
+    let cbocombollenar = document.getElementById('cboContrato');
     if (data != null && data.length > 0) {
         llenarCombo(data, cbocombollenar);
     } else {
@@ -122,6 +125,3 @@ idlimpiarCombo.onclick = function () {
 
 listar();
 
-$.get("Alumno/listarSexo", function (data) {
-    llenarSexo(data);
-});
