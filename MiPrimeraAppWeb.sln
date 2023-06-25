@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DConexionBase3", "DConexionBase3\DConexionBase3.csproj", "{8B22F51B-D70B-42EE-A32D-D4640EA748F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiTerceraAppWeb", "MiTerceraAppWeb\MiTerceraAppWeb.csproj", "{A8C822AA-6592-46BA-9E46-2D22AE7929DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B22F51B-D70B-42EE-A32D-D4640EA748F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B22F51B-D70B-42EE-A32D-D4640EA748F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B22F51B-D70B-42EE-A32D-D4640EA748F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B22F51B-D70B-42EE-A32D-D4640EA748F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C822AA-6592-46BA-9E46-2D22AE7929DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C822AA-6592-46BA-9E46-2D22AE7929DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C822AA-6592-46BA-9E46-2D22AE7929DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C822AA-6592-46BA-9E46-2D22AE7929DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E65C201A-8FF0-4DBA-AE3A-B77E678C17A6}
+	EndGlobalSection
+EndGlobal

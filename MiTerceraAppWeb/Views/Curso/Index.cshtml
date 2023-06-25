@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Curso Index";
+}
+
+<h2>Curso</h2>
+<link href="~/Content/datatables.css" rel="stylesheet" />
+<form id="form form-inline">
+    <div class="form-group">
+        <label>Nombre:</label>
+        <input id="txtnombre" type="text" class="form-control" />
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <input id="idbutton" type="button" class="btn btn-primary" value="Buscar" />
+        <input id="idlimpiar" type="reset" class="btn btn-danger" value="Limpiar" />
+    </div>
+    
+    <div id="idtabla"></div>
+</form>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/datatables.min.js"></script>
+<script src="~/Scripts/curso.js"></script>
+
+
