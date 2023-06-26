@@ -171,6 +171,55 @@ namespace MiTerceraAppWeb.Controllers
 			}
 		}
 
+		public JsonResult recuperarAlumno(int id)
+		{
+			try
+			{
+				List<Alumno> alumnos = new List<Alumno>();
+				DBAcceso db = new DBAcceso();
+				DataTable dt = db.obtenerAlumnoId(id);
+				foreach (DataRow row in dt.Rows)
+				{
+					int IID = int.Parse(row["IID"].ToString());
+					int IIDALUMNO = int.Parse(row["IIDALUMNO"].ToString());
+					string NOMBRE = row["NOMBRE"].ToString();
+					string APPATERNO = row["APPATERNO"].ToString();
+					string APMATERNO = row["APMATERNO"].ToString();
+					DateTime FECHANACIMIENTO = DateTime.Parse(row["FECHANACIMIENTO"].ToString());
+					int IIDSEXO = int.Parse(row["IIDSEXO"].ToString());
+					string TELEFONOPADRE = row["TELEFONOPADRE"].ToString();
+					string TELEFONOMADRE = row["TELEFONOMADRE"].ToString();
+					int NUMEROHERMANOS = int.Parse(row["NUMEROHERMANOS"].ToString());
+					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
+					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
+					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
+					Alumno periodo;
+					periodo = new Alumno
+					{
+						IID = IID,
+						IIDALUMNO = IIDALUMNO,
+						NOMBRE = NOMBRE,
+						APPATERNO = APPATERNO,
+						APMATERNO = APMATERNO,
+						FECHANACIMIENTO = FECHANACIMIENTO,
+						IIDSEXO = IIDSEXO,
+						TELEFONOPADRE = TELEFONOPADRE,
+						TELEFONOMADRE = TELEFONOMADRE,
+						NUMEROHERMANOS = NUMEROHERMANOS,
+						BHABILITADO = BHABILITADO,
+						IIDTIPOUSUARIO = IIDTIPOUSUARIO,
+						bTieneUsuario = bTieneUsuario
+					};
+					alumnos.Add(periodo);
+				}
+				return new JsonResult { Data = alumnos, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult { Data = ex.Message, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+			}
+		}
+
 		public JsonResult listarSexo()
 		{
 			try
@@ -193,6 +242,20 @@ namespace MiTerceraAppWeb.Controllers
 					sexos.Add(sexo);
 				}
 				return new JsonResult { Data = sexos, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult { Data = ex.Message, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+			}
+		}
+
+		public JsonResult guardarDatos(Alumno alumno)
+		{
+			try
+			{
+				DBAcceso db = new DBAcceso();
+				int resultado = (alumno.IIDALUMNO == 0) ? db.insertarAlumno(alumno) : db.actualizarAlumno(alumno);
+				return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 			}
 			catch (Exception ex)
 			{

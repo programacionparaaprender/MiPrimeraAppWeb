@@ -3,6 +3,14 @@
     changeMonth: true,
     changeYear: true
 });
+
+function listar() {
+    $.get("Alumno/listarSexo", function (data) {
+        llenarSexo(data);
+        llenarSexoPopup(data);
+    });
+}
+
 function llenarCombo(data, control, primerElemento = 1) {
     let html = '';
     html += '<option value="" disabled>--Seleccione elemento--</option>';
@@ -115,7 +123,7 @@ function llenarTabla(data) {
             //html += '<td>' + curso.IIDTIPOUSUARIO + '</td>';
             //html += '<td>' + curso.bTieneUsuario + '</td>';
             html += '<td><div class="btn-group" role="group" aria-label="Basic example">';
-            html += '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">';
+            html += '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="abrirModal(' + curso.IIDALUMNO + ')">';
             html += '<i class="fa fa-pencil" aria-hidden="true"></i>';
             html += '</button>';
             html += '<button type="button" class="btn btn-danger">';
@@ -132,6 +140,25 @@ function llenarTabla(data) {
         });
     } else {
         idtabla.innerHTML = 'Tabla vacia'
+    }
+}
+
+function abrirModal(IIDALUMNO = 0) {
+    if (IIDALUMNO == 0) {
+        borrarDatos();
+    } else {
+        $.get("Alumno/recuperarAlumno?id=" + IIDALUMNO, function (data) {
+            document.getElementById('txtIdAlumno').value = data[0].IIDALUMNO;
+            document.getElementById('txtnombre').value = data[0].NOMBRE;
+            document.getElementById('txtappaterno').value = data[0].APPATERNO;
+            document.getElementById('txtapmaterno').value = data[0].APMATERNO;
+            document.getElementById('txtfecnacimiento').value = moment(data[0].FECHANACIMIENTO).format("DD/MM/yyyy");
+            document.getElementById('cboSexoPopup').value = data[0].IIDSEXO;
+            document.getElementById('txttelpadre').value = data[0].TELEFONOPADRE;
+            document.getElementById('txttelmadre').value = data[0].TELEFONOMADRE;
+            document.getElementById('txtnrohermanos').value = data[0].NUMEROHERMANOS;
+
+        });
     }
 }
 
@@ -167,19 +194,19 @@ idlimpiarCombo.onclick = function () {
 }
 
 $.get("Alumno/listarAlumnos", function (data) {
-    let llaves = Object.keys(data[0]);
-    console.log(llaves);
-    let columns = [];
-    let dataSet = [];
-    for (let column of llaves) {
-        columns.push({ title: column });
-    }
-    llaves = Object.values(data[0]);
-    console.log(llaves);
-    for (let alumno of data) {
-        dataSet.push(Object.values(alumno));
-    }
-    console.log(columns);
+    //let llaves = Object.keys(data[0]);
+    //console.log(llaves);
+    //let columns = [];
+    //let dataSet = [];
+    //for (let column of llaves) {
+    //    columns.push({ title: column });
+    //}
+    //llaves = Object.values(data[0]);
+    //console.log(llaves);
+    //for (let alumno of data) {
+    //    dataSet.push(Object.values(alumno));
+    //}
+    //console.log(columns);
     
     //const columnas = ['IID', 'IIDALUMNO', 'NOMBRE', 'APPATERNO', 'APMATERNO', 'FECHANACIMIENTO', 'IIDSEXO', 'TELEFONOPADRE', 'TELEFONOMADRE', 'NUMEROHERMANOS', 'BHABILITADO', 'IIDTIPOUSUARIO', 'bTieneUsuario']
     //llenarTabla(columnas, data);
@@ -200,7 +227,52 @@ $.get("Alumno/listarAlumnos", function (data) {
     llenarCombobox(data);
 });
 
-$.get("Alumno/listarSexo", function (data) {
-    llenarSexo(data);
-    llenarSexoPopup(data);
-});
+function agregar() {
+    try {
+        if (datosObligatorios()) {
+            if (confirm('¿Desea realmente guardar?') == 1) {
+                let frm = new FormData();
+                let IIDALUMNO = document.getElementById('txtIdAlumno').value;
+                let NOMBRE = document.getElementById('txtnombre').value;
+                let APPATERNO = document.getElementById('txtappaterno').value;
+                let APMATERNO = document.getElementById('txtapmaterno').value;
+                let FECHANACIMIENTO = moment(document.getElementById('txtfecnacimiento').value).format("DD/MM/yyyy");
+                let IIDSEXO = document.getElementById('cboSexoPopup').value;
+                let TELEFONOPADRE = document.getElementById('txttelpadre').value;
+                let TELEFONOMADRE = document.getElementById('txttelmadre').value;
+                let NUMEROHERMANOS = document.getElementById('txtnrohermanos').value;
+
+                frm.append('IIDALUMNO', IIDALUMNO);
+                frm.append('NOMBRE', NOMBRE);
+                frm.append('APPATERNO', APPATERNO);
+                frm.append('APMATERNO', APMATERNO);
+                frm.append('FECHANACIMIENTO', FECHANACIMIENTO);
+                frm.append('IIDSEXO', IIDSEXO);
+                frm.append('TELEFONOPADRE', TELEFONOPADRE);
+                frm.append('TELEFONOMADRE', TELEFONOMADRE);
+                frm.append('NUMEROHERMANOS', NUMEROHERMANOS);
+                frm.append('BHABILITADO', 1);
+                $.ajax({
+                    type: "POST",
+                    url: "Alumno/guardarDatos",
+                    data: frm,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data != 0) {
+                            alert('guardado con exito.');
+                            listar();
+                            document.getElementById('btnCancelar').click();
+                        } else {
+                            alert('ocurrio un error.');
+                        }
+                    }
+                });
+            }
+        }
+    } catch (e) {
+        alert('ocurrio un error al registrar.');
+    }
+}
+
+listar();

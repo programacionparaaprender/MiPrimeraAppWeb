@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using Models;
+using MiTerceraAppWeb.Models;
 
 namespace DConexionBase3
 {
@@ -88,6 +89,92 @@ namespace DConexionBase3
 			}
 		}
 
+		public int insertarAlumno(Alumno alumno)
+		{
+			int resultado = 0;
+			try
+			{
+				//int IIDALUMNO = alumno.IIDALUMNO;
+				string NOMBRE = alumno.NOMBRE;
+				string APPATERNO = alumno.APPATERNO;
+				string APMATERNO = alumno.APMATERNO;
+				DateTime FECHANACIMIENTO = alumno.FECHANACIMIENTO;
+				int IIDSEXO = alumno.IIDSEXO;
+				string TELEFONOPADRE = alumno.TELEFONOPADRE;
+				string TELEFONOMADRE = alumno.TELEFONOMADRE;
+				int NUMEROHERMANOS = alumno.NUMEROHERMANOS;
+				int BHABILITADO = alumno.BHABILITADO;
+				string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+				using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+				{
+					conexion.Open();
+					string strCadSQL = @"INSERT INTO Periodo (NOMBRE,FECHAINICIO,FECHAFIN,BHABILITADO) Values(@NOMBRE,@FECHAINICIO,@FECHAFIN,@BHABILITADO)";
+					SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+					//comando.Parameters.AddWithValue("@IIDALUMNO", IIDALUMNO);
+					comando.Parameters.AddWithValue("@NOMBRE", NOMBRE);
+					comando.Parameters.AddWithValue("@APPATERNO", APPATERNO);
+					comando.Parameters.AddWithValue("@APMATERNO", APMATERNO);
+					comando.Parameters.AddWithValue("@FECHANACIMIENTO", FECHANACIMIENTO);
+					comando.Parameters.AddWithValue("@IIDSEXO", IIDSEXO);
+					comando.Parameters.AddWithValue("@TELEFONOPADRE", TELEFONOPADRE);
+					comando.Parameters.AddWithValue("@TELEFONOMADRE", TELEFONOMADRE);
+					comando.Parameters.AddWithValue("@NUMEROHERMANOS", NUMEROHERMANOS);
+					comando.Parameters.AddWithValue("@BHABILITADO", BHABILITADO);
+					resultado = comando.ExecuteNonQuery();
+					conexion.Close();
+				}
+				return resultado;
+			}
+			catch (Exception)
+			{
+				Console.WriteLine("insertarAlumno");
+				return 0;
+			}
+		}
+
+		public int actualizarAlumno(Alumno alumno)
+		{
+			int resultado = 0;
+			try
+			{
+				int IIDALUMNO = alumno.IIDALUMNO;
+				string NOMBRE = alumno.NOMBRE;
+				string APPATERNO = alumno.APPATERNO;
+				string APMATERNO = alumno.APMATERNO;
+				DateTime FECHANACIMIENTO = alumno.FECHANACIMIENTO;
+				int IIDSEXO = alumno.IIDSEXO;
+				string TELEFONOPADRE = alumno.TELEFONOPADRE;
+				string TELEFONOMADRE = alumno.TELEFONOMADRE;
+				int NUMEROHERMANOS = alumno.NUMEROHERMANOS;
+				//int BHABILITADO = alumno.BHABILITADO;
+				string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+				using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+				{
+					conexion.Open();
+					string strCadSQL = @"UPDATE Curso Set NOMBRE=@NOMBRE,APPATERNO=@APPATERNO,APMATERNO=@APMATERNO,FECHANACIMIENTO=@FECHANACIMIENTO,IIDSEXO=@IIDSEXO,TELEFONOPADRE=@TELEFONOPADRE,TELEFONOMADRE=@TELEFONOMADRE,NUMEROHERMANOS=@NUMEROHERMANOS WHERE IIDALUMNO=@IIDALUMNO";
+					SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+					comando.Parameters.AddWithValue("@IIDALUMNO", IIDALUMNO);
+					comando.Parameters.AddWithValue("@NOMBRE", NOMBRE);
+					comando.Parameters.AddWithValue("@APPATERNO", APPATERNO);
+					comando.Parameters.AddWithValue("@APMATERNO", APMATERNO);
+					comando.Parameters.AddWithValue("@FECHANACIMIENTO", FECHANACIMIENTO);
+					comando.Parameters.AddWithValue("@IIDSEXO", IIDSEXO);
+					comando.Parameters.AddWithValue("@TELEFONOPADRE", TELEFONOPADRE);
+					comando.Parameters.AddWithValue("@TELEFONOMADRE", TELEFONOMADRE);
+					comando.Parameters.AddWithValue("@NUMEROHERMANOS", NUMEROHERMANOS);
+					//comando.Parameters.AddWithValue("@BHABILITADO", BHABILITADO);
+					resultado = comando.ExecuteNonQuery();
+					conexion.Close();
+				}
+				return resultado;
+			}
+			catch (Exception)
+			{
+				Console.WriteLine("actualizarAlumno");
+				return 0;
+			}
+		}
+
 		public int insertarPeriodo(Periodo periodo)
 		{
 			int resultado = 0;
@@ -147,7 +234,7 @@ namespace DConexionBase3
 			}
 			catch (Exception)
 			{
-				Console.WriteLine("actualizarCurso");
+				Console.WriteLine("actualizarPeriodo");
 				return 0;
 			}
 		}
@@ -229,6 +316,13 @@ namespace DConexionBase3
 			string strCadSQL = @"SELECT * FROM Curso WHERE BHABILITADO=1";
 			return obtenerTablaGenerico(strCadSQL);
 		}
+
+		public DataTable obtenerAlumnoId(int id)
+		{
+			string strCadSQL = @"SELECT * FROM Alumno WHERE BHABILITADO=1 AND IIDALUMNO=" + id;
+			return obtenerTablaGenerico(strCadSQL);
+		}
+
 
 		public DataTable obtenerAlumnos(int sexo)
 		{
