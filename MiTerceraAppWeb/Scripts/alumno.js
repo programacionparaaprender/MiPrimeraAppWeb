@@ -1,4 +1,9 @@
-﻿function llenarCombo(data, control, primerElemento=1) {
+﻿$('#txtfecnacimiento').datepicker({
+    dateFormar: "dd/mm/yyyy",
+    changeMonth: true,
+    changeYear: true
+});
+function llenarCombo(data, control, primerElemento = 1) {
     let html = '';
     html += '<option value="" disabled>--Seleccione elemento--</option>';
     for (let i = 0; i < data.length; i++) {
@@ -22,6 +27,15 @@ function llenarCombobox(data) {
 
 function llenarSexo(data) {
     let cbocombollenar = document.getElementById('cboSexo');
+    if (data != null && data.length > 0) {
+        llenarCombo(data, cbocombollenar);
+    } else {
+        cbocombollenar.innerHTML = ''
+    }
+}
+
+function llenarSexoPopup(data) {
+    let cbocombollenar = document.getElementById('cboSexoPopup');
     if (data != null && data.length > 0) {
         llenarCombo(data, cbocombollenar);
     } else {
@@ -75,13 +89,14 @@ function llenarTabla(data) {
         html += '            <th>APPATERNO</th>';
         html += '            <th>APMATERNO</th>';
         html += '            <th>FECHANACIMIENTO</th>';
-        html += '            <th>IIDSEXO</th>';
-        html += '            <th>TELEFONOPADRE</th>';
-        html += '            <th>TELEFONOMADRE</th>';
-        html += '            <th>NUMEROHERMANOS</th>';
-        html += '            <th>BHABILITADO</th>';
-        html += '            <th>IIDTIPOUSUARIO</th>';
-        html += '            <th>bTieneUsuario</th>';
+        //html += '            <th>IIDSEXO</th>';
+        //html += '            <th>TELEFONOPADRE</th>';
+        //html += '            <th>TELEFONOMADRE</th>';
+        //html += '            <th>NUMEROHERMANOS</th>';
+        //html += '            <th>BHABILITADO</th>';
+        //html += '            <th>IIDTIPOUSUARIO</th>';
+        //html += '            <th>bTieneUsuario</th>';
+        html += '            <th>OPERACIONES</th>';
         html += '        </tr>';
         html += '    </thead>';
         html += '    <tbody>';
@@ -92,13 +107,21 @@ function llenarTabla(data) {
             html += '<td>' + curso.APPATERNO + '</td>';
             html += '<td>' + curso.APMATERNO + '</td>';
             html += '<td>' + moment(curso.FECHANACIMIENTO).format("DD/MM/yyyy") + '</td>';
-            html += '<td>' + curso.IIDSEXO + '</td>';
-            html += '<td>' + curso.TELEFONOPADRE + '</td>';
-            html += '<td>' + curso.TELEFONOMADRE + '</td>';
-            html += '<td>' + curso.NUMEROHERMANOS + '</td>';
-            html += '<td>' + curso.BHABILITADO + '</td>';
-            html += '<td>' + curso.IIDTIPOUSUARIO + '</td>';
-            html += '<td>' + curso.bTieneUsuario + '</td>';
+            //html += '<td>' + curso.IIDSEXO + '</td>';
+            //html += '<td>' + curso.TELEFONOPADRE + '</td>';
+            //html += '<td>' + curso.TELEFONOMADRE + '</td>';
+            //html += '<td>' + curso.NUMEROHERMANOS + '</td>';
+            //html += '<td>' + curso.BHABILITADO + '</td>';
+            //html += '<td>' + curso.IIDTIPOUSUARIO + '</td>';
+            //html += '<td>' + curso.bTieneUsuario + '</td>';
+            html += '<td><div class="btn-group" role="group" aria-label="Basic example">';
+            html += '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">';
+            html += '<i class="fa fa-pencil" aria-hidden="true"></i>';
+            html += '</button>';
+            html += '<button type="button" class="btn btn-danger">';
+            html += '<i class="fa fa-trash" aria-hidden="true"></i>';
+            html += '</button>';
+            html += '</div></td>';
             html += '</tr>';
         }
         html += '    </tbody>';
@@ -179,4 +202,5 @@ $.get("Alumno/listarAlumnos", function (data) {
 
 $.get("Alumno/listarSexo", function (data) {
     llenarSexo(data);
+    llenarSexoPopup(data);
 });

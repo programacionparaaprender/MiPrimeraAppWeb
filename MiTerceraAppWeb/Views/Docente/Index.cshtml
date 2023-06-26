@@ -5,14 +5,19 @@
 
 <h2>Docentes</h2>
 <link href="~/Content/datatables.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />
 <form class="form form-inline">
     <label>Ingrese modalidad de contrato:</label>
     <select id="cboContrato" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
     </select>
+    <!--
     <div class="btn-group" role="group" aria-label="Basic example">
-        <input id="btnBuscarModalidadContrato" type="button" class="btn btn-primary" value="Buscar" />
-        <input id="idlimpiarCombo" type="reset" class="btn btn-danger" value="Limpiar" />
+        <input id="btnBuscarModalidadContrato" type="button" class="btn btn-primary" value="Buscar" disabled />
+        <input id="idlimpiarCombo" type="reset" class="btn btn-danger" value="Limpiar" disabled />
     </div>
+    -->
 </form>
 <form class="form form-inline">
     <div class="form-group">
@@ -23,12 +28,85 @@
         <input id="idbutton" type="button" class="btn btn-primary" value="Buscar" />
         <input id="idlimpiar" type="reset" class="btn btn-danger" value="Limpiar" />
     </div>
-
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar
+    </button>
     <div id="idtabla"></div>
     <div id="tabla-curso"></div>
 </form>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table style="width:80%;margin:auto">
+                    <tr>
+                        <td width="40%">Id Docente</td>
+                        <td width="60%"><input type="text" id="txtIdDocente" readonly /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Nombre</td>
+                        <td><input type="text" id="txtnombre" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Apellido Paterno</td>
+                        <td><input type="text" id="txtappaterno" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Apellido Materno</td>
+                        <td><input type="text" id="txtapmaterno" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Dirección</td>
+                        <td><input type="text" id="txtdireccion" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Telefono Fijo</td>
+                        <td><input type="number" id="txttelefonofijo" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Telefono Celular</td>
+                        <td><input type="number" id="txttelefonocelular" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Email</td>
+                        <td><input type="email" id="txtemail" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Sexo</td>
+                        <td><select id="cboSexo"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Fecha de Contrato</td>
+                        <td><input type="text" id="dtFechaContrato" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Modalidad de Contrato</td>
+                        <td><select id="cboModalidadContratoPopup"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Foto</td>
+                        <td><img id="imgFoto" width="100" height="100" style="border:1px #ccc solid;" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button id="btnAceptar" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                    <button id="btnCancelar" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/moment.js"></script>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/datatables.min.js"></script>
 <script src="~/Scripts/docente.js"></script>
 

@@ -1,4 +1,14 @@
-﻿function llenarTabla(data) {
+﻿$('#datepickerInicio').datepicker({
+    dateFormar: "dd/mm/yyyy",
+    changeMonth: true,
+    changeYear: true
+});
+$('#datepickerFin').datepicker({
+    dateFormar: "dd/mm/yyyy",
+    changeMonth: true,
+    changeYear: true
+});
+function llenarTabla(data) {
     let idtabla = document.getElementById('idtabla');
     let html = '';
     if (data != null && data.length > 0) {
@@ -10,6 +20,7 @@
         html += '            <th>FECHAINICIO</th>';
         html += '            <th>FECHAFIN</th>';
         html += '            <th>BHABILITADO</th>';
+        html += '            <th>OPERACIONES</th>';
         html += '        </tr>';
         html += '    </thead>';
         html += '    <tbody>';
@@ -20,6 +31,14 @@
             html += '<td>' + moment(curso.FECHAINICIO).format("DD/MM/yyyy") + '</td>';
             html += '<td>' + moment(curso.FECHAFIN).format("DD/MM/yyyy") + '</td>';
             html += '<td>' + curso.BHABILITADO + '</td>';
+            html += '<td><div class="btn-group" role="group" aria-label="Basic example">';
+            html += '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">';
+            html += '<i class="fa fa-pencil" aria-hidden="true"></i>';
+            html += '</button>';
+            html += '<button type="button" class="btn btn-danger">';
+            html += '<i class="fa fa-trash" aria-hidden="true"></i>';
+            html += '</button>';
+            html += '</div></td>';
             html += '</tr>';
         }
         html += '    </tbody>';

@@ -5,6 +5,9 @@
 
 <h2>Alumnos</h2>
 <link href="~/Content/datatables.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />
 <form class="form form-inline">
     <select id="cboSexo" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
     </select>
@@ -27,12 +30,73 @@
         <input id="idbutton" type="button" class="btn btn-primary" value="Buscar" />
         <input id="idlimpiar" type="reset" class="btn btn-danger" value="Limpiar" />
     </div>
-
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar
+    </button>
     <div id="idtabla"></div>
     <div id="tabla-curso"></div>
 </form>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Curso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table style="width:80%;margin:auto">
+                    <tr>
+                        <td width="40%">Id Alumno</td>
+                        <td width="60%"><input type="text" id="txtIdAlumno" readonly /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese nombre de alumno</td>
+                        <td><input type="text" id="txtnombre" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese apellido paterno</td>
+                        <td><input type="text" id="txtappaterno" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese apellido materno</td>
+                        <td><input type="text" id="txtapmaterno" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese sexo</td>
+                        <td><select id="cboSexoPopup"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese fecha de nacimiento</td>
+                        <td><input type="text" id="txtfecnacimiento" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese telefono padre</td>
+                        <td><input type="text" id="txttelpadre" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese telefono madre</td>
+                        <td><input type="text" id="txttelmadre" /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese número de hermanos</td>
+                        <td><input type="text" id="txtnrohermanos" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button id="btnAceptar" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                    <button id="btnCancelar" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/Scripts/moment.js"></script>
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
 <script src="~/Scripts/datatables.min.js"></script>
 <script src="~/Scripts/alumno.js"></script>
 

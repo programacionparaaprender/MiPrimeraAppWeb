@@ -9,6 +9,7 @@
         html += '            <th>NOMBRE</th>';
         html += '            <th>DESCRIPCION</th>';
         html += '            <th>BHABILITADO</th>';
+        html += '            <th>OPERACIONES</th>';
         html += '        </tr>';
         html += '    </thead>';
         html += '    <tbody>';
@@ -18,6 +19,14 @@
             html += '<td>' + curso.NOMBRE + '</td>';
             html += '<td>' + curso.DESCRIPCION + '</td>';
             html += '<td>' + curso.BHABILITADO + '</td>';
+            html += '<td><div class="btn-group" role="group" aria-label="Basic example">';
+            html += '<button class="btn btn-success">';
+            html += '<i class="fa fa-pencil" aria-hidden="true"></i>';
+            html += '</button>';
+            html += '<button class="btn btn-danger">';
+            html += '<i class="fa fa-trash" aria-hidden="true"></i>';
+            html += '</button>';
+            html += '</div></td>';
             html += '</tr>';
         }
         html += '    </tbody>';
