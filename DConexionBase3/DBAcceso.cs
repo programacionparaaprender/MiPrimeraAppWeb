@@ -80,6 +80,12 @@ namespace DConexionBase3
 			return obtenerTablaGenerico(strCadSQL);
 		}
 
+		public DataTable obtenerSeccion()
+		{
+			string strCadSQL = @"SELECT IIDSECCION as IID,* FROM Seccion WHERE BHABILITADO=1";
+			return obtenerTablaGenerico(strCadSQL);
+		}
+
 		public DataTable obtenerPeriodo()
 		{
 			string strCadSQL = @"SELECT IIDPERIODO as IID,* FROM Periodo WHERE BHABILITADO=1";

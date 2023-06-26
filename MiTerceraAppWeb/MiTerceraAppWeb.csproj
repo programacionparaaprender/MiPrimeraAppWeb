@@ -140,6 +140,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\periodo.js" />
+    <Content Include="Scripts\seccion.js" />
     <Content Include="Scripts\sumar.js" />
     <Content Include="Scripts\tabla.js" />
     <Content Include="Web.config" />
@@ -161,6 +162,7 @@
     <Compile Include="Models\ModalidadContrato.cs" />
     <Compile Include="Models\Periodo.cs" />
     <Compile Include="Models\Persona.cs" />
+    <Compile Include="Models\Seccion.cs" />
     <Compile Include="Models\Sexo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
