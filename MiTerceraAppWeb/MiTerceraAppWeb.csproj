@@ -143,6 +143,7 @@
     <Content Include="Scripts\seccion.js" />
     <Content Include="Scripts\sumar.js" />
     <Content Include="Scripts\tabla.js" />
+    <Content Include="Scripts\utilitarios.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -156,14 +157,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Alumno.cs" />
-    <Compile Include="Models\Curso.cs" />
-    <Compile Include="Models\Docente.cs" />
-    <Compile Include="Models\ModalidadContrato.cs" />
-    <Compile Include="Models\Periodo.cs" />
-    <Compile Include="Models\Persona.cs" />
-    <Compile Include="Models\Seccion.cs" />
-    <Compile Include="Models\Sexo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +217,10 @@
     <ProjectReference Include="..\DConexionBase3\DConexionBase3.csproj">
       <Project>{8b22f51b-d70b-42ee-a32d-d4640ea748f8}</Project>
       <Name>DConexionBase3</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{1753ab90-f37b-4f86-a2eb-164579c532c1}</Project>
+      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -16,7 +16,7 @@ namespace MiTerceraAppWeb
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
-				defaults: new { controller = "Seccion", action = "Index", id = UrlParameter.Optional }
+				defaults: new { controller = "Periodo", action = "Index", id = UrlParameter.Optional }
 			);
 
 		}

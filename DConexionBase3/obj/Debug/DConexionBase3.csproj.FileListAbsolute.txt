@@ -1,7 +1,11 @@
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\bin\Debug\DConexionBase3.dll.config
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\bin\Debug\DConexionBase3.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\bin\Debug\DConexionBase3.pdb
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\bin\Debug\Models.dll
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\bin\Debug\Models.pdb
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\bin\Debug\Models.dll.config
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\obj\Debug\DConexionBase3.csproj.AssemblyReference.cache
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\obj\Debug\DConexionBase3.csproj.CoreCompileInputs.cache
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\obj\Debug\DConexionBase3.csproj.CopyComplete
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\obj\Debug\DConexionBase3.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\DConexionBase3\obj\Debug\DConexionBase3.pdb

@@ -52,14 +52,20 @@ C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\roslyn\vbc.e
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\roslyn\vbc.rsp
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\roslyn\VBCSCompiler.exe
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\Models.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Helpers.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Mvc.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Razor.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Webpages.Deployment.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Webpages.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Webpages.Razor.dll
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.pdb
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.dll.config
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\Models.pdb
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\Models.dll.config
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Razor.xml
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Webpages.xml
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\System.Web.Webpages.Deployment.xml
@@ -76,6 +82,3 @@ C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\es\System.We
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.csproj.CopyComplete
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.pdb
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.dll
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.pdb
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.dll.config

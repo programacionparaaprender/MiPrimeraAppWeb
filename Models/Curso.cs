@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MiTerceraAppWeb.Models
+namespace Models
 {
-	public class Seccion
+	public class Curso
 	{
-		public int IID { get; set; }
+		public int IIDCURSO { get; set; }
 		public string NOMBRE { get; set; }
+		public string DESCRIPCION { get; set; }
 		public int BHABILITADO { get; set; }
 	}
 }

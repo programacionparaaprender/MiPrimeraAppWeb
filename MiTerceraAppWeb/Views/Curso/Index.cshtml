@@ -15,7 +15,7 @@
         <input id="idlimpiar" type="reset" class="btn btn-danger" value="Limpiar" />
     </div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" onclick="abrirModal()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Agregar
     </button>
     <div id="idtabla"></div>
@@ -33,21 +33,21 @@
                 <table style="width:80%;margin:auto">
                     <tr>
                         <td width="40%">Id Curso</td>
-                        <td width="60%"><input type="text" id="txtIdCurso" readonly /></td>
+                        <td width="60%"><input class="borrar" type="text" id="txtIdCurso" readonly /></td>
                     </tr>
                     <tr>
                         <td>Ingrese nombre de curso</td>
-                        <td><input type="text" id="txtnombre" /></td>
+                        <td><input class="borrar obligatorio" type="text" id="txtnombrecurso" /></td>
                     </tr>
                     <tr>
                         <td>Ingrese descripción del curso</td>
-                        <td><input type="text" id="txtdescripcion" /></td>
+                        <td><input class="borrar obligatorio" type="text" id="txtdescripcion" /></td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button id="btnAceptar" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                    <button id="btnAceptar" onclick="agregar()" type="button" class="btn btn-success">Aceptar</button>
                     <button id="btnCancelar" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>

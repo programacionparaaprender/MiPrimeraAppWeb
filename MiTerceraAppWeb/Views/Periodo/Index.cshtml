@@ -35,25 +35,25 @@
                 <table style="width: 80%; margin: auto">
                     <tr>
                         <td width="40%">Id Periodo</td>
-                        <td width="60%"><input type="text" id="txtIdPeriodo" readonly /></td>
+                        <td width="60%"><input class="borrar" type="text" id="txtIdPeriodo" readonly /></td>
                     </tr>
                     <tr>
                         <td>Ingrese nombre Periodo</td>
-                        <td><input type="text" id="txtnombre" /></td>
+                        <td><input class="borrar obligatorio" type="text" id="txtnombreperiodo" /></td>
                     </tr>
                     <tr>
                         <td>Ingrese fecha Inicio</td>
-                        <td><input type="text" id="datepickerInicio" /></td>
+                        <td><input class="borrar obligatorio" type="text" id="datepickerInicio" /></td>
                     </tr>
                     <tr>
                         <td>Ingrese fecha Fin</td>
-                        <td><input type="text" id="datepickerFin" /></td>
+                        <td><input class="borrar obligatorio" type="text" id="datepickerFin" /></td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button id="btnAceptar" type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
+                    <button id="btnAceptar" onclick="agregar()" type="button" class="btn btn-success">Aceptar</button>
                     <button id="btnCancelar" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>

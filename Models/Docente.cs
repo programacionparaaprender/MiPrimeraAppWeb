@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace MiTerceraAppWeb.Models
+namespace Models
 {
 	public class Docente
 	{

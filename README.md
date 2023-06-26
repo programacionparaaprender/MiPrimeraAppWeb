@@ -9,4 +9,8 @@
 >- https://es.stackoverflow.com/questions/300382/como-mostrar-una-foto-en-asp-net-mvc-framework
 >- https://icons.getbootstrap.com/
 >- https://jqueryui.com/download/
+	
+### modal
+>- https://stackoverflow.com/questions/73251481/bootstrap-5-modal-wont-dismiss
+>- https://getbootstrap.com/docs/5.0/components/modal/
 
