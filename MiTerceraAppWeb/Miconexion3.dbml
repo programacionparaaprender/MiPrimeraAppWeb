@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SistemaMatricula" Class="Miconexion3DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LAPTOP-CKPUJRP1\SQLEXPRESS;Initial Catalog=SistemaMatricula;Persist Security Info=True;User ID=sa;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SistemaMatriculaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.GradoSeccion" Member="GradoSeccion">
+    <Type Name="GradoSeccion">
+      <Column Name="IID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IIDGRADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDSECCION" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grado_GradoSeccion" Member="Grado" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado" IsForeignKey="true" />
+      <Association Name="Seccion_GradoSeccion" Member="Seccion" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="Seccion" IsForeignKey="true" />
+      <Association Name="Grado1_GradoSeccion" Member="Grado1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado1" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grado" Member="Grado">
+    <Type Name="Grado">
+      <Column Name="IIDGRADO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grado_GradoSeccion" Member="GradoSeccion" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="GradoSeccion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Seccion" Member="Seccion">
+    <Type Name="Seccion">
+      <Column Name="IIDSECCION" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Seccion_GradoSeccion" Member="GradoSeccion" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="GradoSeccion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grado" Member="Grado1">
+    <Type Name="Grado1">
+      <Column Name="IIDGRADO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grado1_GradoSeccion" Member="GradoSeccion" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="GradoSeccion" />
+    </Type>
+  </Table>
+</Database>

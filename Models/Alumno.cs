@@ -12,7 +12,9 @@ namespace MiTerceraAppWeb.Models
 		public string NOMBRE { get; set; }
 		public string APPATERNO { get; set; }
 		public string APMATERNO { get; set; }
+
 		public DateTime FECHANACIMIENTO { get; set; }
+		public string FECHANACIMIENTOSTRING { get; set; }
 		public int IIDSEXO { get; set; }
 		public string TELEFONOPADRE { get; set; }
 		public string TELEFONOMADRE { get; set; }

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Miconexion">
+  <DataContextMoniker Name="/MiconexionDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d8964617-9568-4765-97ba-dbe0799a5761" absoluteBounds="4.5, 0.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/MiconexionDataContext/Curso" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a8994370-61ca-46e0-9c40-f470666a171c" absoluteBounds="4.515, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f13661bc-f58e-416d-82e9-bdc4305269a9" absoluteBounds="2.875, 3, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/MiconexionDataContext/Curso1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a2e8ff84-326d-4d41-83ff-1f4b99ec96a5" absoluteBounds="2.8899999999999997, 3.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

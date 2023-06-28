@@ -1,27 +1,44 @@
-﻿$('#txtfecnacimiento').datepicker({
-    dateFormar: "dd/mm/yyyy",
-    changeMonth: true,
-    changeYear: true
-});
+﻿
 
 function listar() {
+
+    $.get("Alumno/listarAlumnos", function (data) {
+        //let llaves = Object.keys(data[0]);
+        //console.log(llaves);
+        //let columns = [];
+        //let dataSet = [];
+        //for (let column of llaves) {
+        //    columns.push({ title: column });
+        //}
+        //llaves = Object.values(data[0]);
+        //console.log(llaves);
+        //for (let alumno of data) {
+        //    dataSet.push(Object.values(alumno));
+        //}
+        //console.log(columns);
+
+        //const columnas = ['IID', 'IIDALUMNO', 'NOMBRE', 'APPATERNO', 'APMATERNO', 'FECHANACIMIENTO', 'IIDSEXO', 'TELEFONOPADRE', 'TELEFONOMADRE', 'NUMEROHERMANOS', 'BHABILITADO', 'IIDTIPOUSUARIO', 'bTieneUsuario']
+        //llenarTabla(columnas, data);
+        //$('#tabla-curso').DataTable({
+        //    data: data,
+        //    columns: [
+        //        { title: 'IIDCURSO' },
+        //        { title: 'NOMBRE' },
+        //        { title: 'DESCRIPCION' },
+        //        { title: 'BHABILITADO.' }
+        //    ],
+        //});
+        //$('#tabla-curso').DataTable({
+        //    data: dataSet,
+        //    columns: columns,
+        //});
+        llenarTabla(data);
+        llenarCombobox(data);
+    });
     $.get("Alumno/listarSexo", function (data) {
         llenarSexo(data);
         llenarSexoPopup(data);
     });
-}
-
-function llenarCombo(data, control, primerElemento = 1) {
-    let html = '';
-    html += '<option value="" disabled>--Seleccione elemento--</option>';
-    for (let i = 0; i < data.length; i++) {
-        if (primerElemento == i) {
-            html += '<option value="' + data[i].IID + '" selected>' + data[i].NOMBRE + '</option>';
-        } else {
-            html += '<option value="' + data[i].IID + '">' + data[i].NOMBRE + '</option>';
-        }
-    }
-    control.innerHTML = html;
 }
 
 function llenarCombobox(data) {
@@ -126,7 +143,7 @@ function llenarTabla(data) {
             html += '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="abrirModal(' + curso.IIDALUMNO + ')">';
             html += '<i class="fa fa-pencil" aria-hidden="true"></i>';
             html += '</button>';
-            html += '<button type="button" class="btn btn-danger">';
+            html += '<button type="button" class="btn btn-danger" onclick="eliminar(' + curso.IIDALUMNO + ')">';
             html += '<i class="fa fa-trash" aria-hidden="true"></i>';
             html += '</button>';
             html += '</div></td>';
@@ -143,20 +160,33 @@ function llenarTabla(data) {
     }
 }
 
+function eliminar(id) {
+    if (confirm('¿Desea realmente eliminar el alumno?') == 1) {
+        $.get("Alumno/eliminarAlumno?id=" + id, function (data) {
+            listar();
+        });
+    }
+}
+
 function abrirModal(IIDALUMNO = 0) {
     if (IIDALUMNO == 0) {
         borrarDatos();
     } else {
         $.get("Alumno/recuperarAlumno?id=" + IIDALUMNO, function (data) {
-            document.getElementById('txtIdAlumno').value = data[0].IIDALUMNO;
-            document.getElementById('txtnombre').value = data[0].NOMBRE;
-            document.getElementById('txtappaterno').value = data[0].APPATERNO;
-            document.getElementById('txtapmaterno').value = data[0].APMATERNO;
-            document.getElementById('txtfecnacimiento').value = moment(data[0].FECHANACIMIENTO).format("DD/MM/yyyy");
-            document.getElementById('cboSexoPopup').value = data[0].IIDSEXO;
-            document.getElementById('txttelpadre').value = data[0].TELEFONOPADRE;
-            document.getElementById('txttelmadre').value = data[0].TELEFONOMADRE;
-            document.getElementById('txtnrohermanos').value = data[0].NUMEROHERMANOS;
+            try {
+                document.getElementById('txtIdAlumno').value = data[0].IIDALUMNO;
+                document.getElementById('txtnombrealumno').value = data[0].NOMBRE;
+                document.getElementById('txtappaterno').value = data[0].APPATERNO;
+                document.getElementById('txtapmaterno').value = data[0].APMATERNO;
+
+  
+                document.getElementById('txtfecnacimiento').value = moment(data[0].FECHANACIMIENTO).format("yyyy-MM-DD");
+                document.getElementById('txttelpadre').value = data[0].TELEFONOPADRE;
+                document.getElementById('txttelmadre').value = data[0].TELEFONOMADRE;
+                document.getElementById('txtnrohermanos').value = data[0].NUMEROHERMANOS;
+            } catch (e) {
+                console.log(e);
+            }
 
         });
     }
@@ -173,8 +203,8 @@ btnBuscarSexo.onclick = function () {
 
 var idbutton = document.getElementById('idbutton');
 idbutton.onclick = function () {
-    var txtnombre = document.getElementById('txtnombre').value;
-    $.get("Alumno/buscarAlumnos?nombre=" + txtnombre, function (data) {
+    var txtnombrealumno = document.getElementById('txtnombrealumno').value;
+    $.get("Alumno/buscarAlumnos?nombre=" + txtnombrealumno, function (data) {
         llenarTabla(data);
     });
 }
@@ -192,51 +222,18 @@ idlimpiarCombo.onclick = function () {
         llenarTabla(data);
     });
 }
-
-$.get("Alumno/listarAlumnos", function (data) {
-    //let llaves = Object.keys(data[0]);
-    //console.log(llaves);
-    //let columns = [];
-    //let dataSet = [];
-    //for (let column of llaves) {
-    //    columns.push({ title: column });
-    //}
-    //llaves = Object.values(data[0]);
-    //console.log(llaves);
-    //for (let alumno of data) {
-    //    dataSet.push(Object.values(alumno));
-    //}
-    //console.log(columns);
-    
-    //const columnas = ['IID', 'IIDALUMNO', 'NOMBRE', 'APPATERNO', 'APMATERNO', 'FECHANACIMIENTO', 'IIDSEXO', 'TELEFONOPADRE', 'TELEFONOMADRE', 'NUMEROHERMANOS', 'BHABILITADO', 'IIDTIPOUSUARIO', 'bTieneUsuario']
-    //llenarTabla(columnas, data);
-    //$('#tabla-curso').DataTable({
-    //    data: data,
-    //    columns: [
-    //        { title: 'IIDCURSO' },
-    //        { title: 'NOMBRE' },
-    //        { title: 'DESCRIPCION' },
-    //        { title: 'BHABILITADO.' }
-    //    ],
-    //});
-    //$('#tabla-curso').DataTable({
-    //    data: dataSet,
-    //    columns: columns,
-    //});
-    llenarTabla(data);
-    llenarCombobox(data);
-});
-
 function agregar() {
     try {
         if (datosObligatorios()) {
             if (confirm('¿Desea realmente guardar?') == 1) {
                 let frm = new FormData();
                 let IIDALUMNO = document.getElementById('txtIdAlumno').value;
-                let NOMBRE = document.getElementById('txtnombre').value;
+                let NOMBRE = document.getElementById('txtnombrealumno').value;
                 let APPATERNO = document.getElementById('txtappaterno').value;
                 let APMATERNO = document.getElementById('txtapmaterno').value;
-                let FECHANACIMIENTO = moment(document.getElementById('txtfecnacimiento').value).format("DD/MM/yyyy");
+
+                let fec = document.getElementById('txtfecnacimiento').value;
+                let FECHANACIMIENTO = moment(fec, "DD/MM/yyyy").toDate();
                 let IIDSEXO = document.getElementById('cboSexoPopup').value;
                 let TELEFONOPADRE = document.getElementById('txttelpadre').value;
                 let TELEFONOMADRE = document.getElementById('txttelmadre').value;
@@ -247,6 +244,7 @@ function agregar() {
                 frm.append('APPATERNO', APPATERNO);
                 frm.append('APMATERNO', APMATERNO);
                 frm.append('FECHANACIMIENTO', FECHANACIMIENTO);
+                frm.append('FECHANACIMIENTOSTRING', fec);
                 frm.append('IIDSEXO', IIDSEXO);
                 frm.append('TELEFONOPADRE', TELEFONOPADRE);
                 frm.append('TELEFONOMADRE', TELEFONOMADRE);
@@ -256,6 +254,7 @@ function agregar() {
                     type: "POST",
                     url: "Alumno/guardarDatos",
                     data: frm,
+                    //dataType: "json",
                     contentType: false,
                     processData: false,
                     success: function (data) {

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Models
 {
-	public class Seccion
+	public class SeccionModels
 	{
 		public int IID { get; set; }
 		public string NOMBRE { get; set; }

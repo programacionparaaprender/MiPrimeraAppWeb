@@ -3,8 +3,11 @@ using MiTerceraAppWeb.Models;
 using Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 
@@ -249,12 +252,28 @@ namespace MiTerceraAppWeb.Controllers
 			}
 		}
 
+		[HttpPost]
 		public JsonResult guardarDatos(Alumno alumno)
 		{
 			try
 			{
 				DBAcceso db = new DBAcceso();
+				alumno.FECHANACIMIENTO = DateTime.Parse(alumno.FECHANACIMIENTOSTRING);
 				int resultado = (alumno.IIDALUMNO == 0) ? db.insertarAlumno(alumno) : db.actualizarAlumno(alumno);
+				return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult { Data = ex.Message, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+			}
+		}
+
+		public JsonResult eliminarAlumno(int id)
+		{
+			try
+			{
+				DBAcceso db = new DBAcceso();
+				int resultado = db.eliminarAlumno(id);
 				return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 			}
 			catch (Exception ex)

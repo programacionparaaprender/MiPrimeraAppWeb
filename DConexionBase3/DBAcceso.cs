@@ -89,7 +89,110 @@ namespace DConexionBase3
 			}
 		}
 
-		public int insertarAlumno(Alumno alumno)
+        public int insertarDocente(Docente docente)
+        {
+            int resultado = 0;
+            try
+            {
+				//int IIDDOCENTE = docente.IIDDOCENTE;
+                string NOMBRE = docente.NOMBRE;
+                string APPATERNO = docente.APPATERNO;
+                string APMATERNO = docente.APMATERNO;
+                string DIRECCION = docente.DIRECCION;
+                string TELEFONOCELULAR = docente.TELEFONOCELULAR;
+                string TELEFONOFIJO = docente.TELEFONOFIJO;
+                string EMAIL = docente.EMAIL;
+                int IIDSEXO = docente.IIDSEXO;
+                DateTime FECHACONTRATO = docente.FECHACONTRATO;
+                byte[] FOTO = docente.FOTO;
+                int IIDMODALIDADCONTRATO = docente.IIDMODALIDADCONTRATO;
+				int BHABILITADO = docente.BHABILITADO;
+
+
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    string strCadSQL = @"INSERT INTO Docente (NOMBRE,APPATERNO,APMATERNO,DIRECCION,TELEFONOCELULAR,TELEFONOFIJO,EMAIL,IIDSEXO,FECHACONTRATO,FOTO,IIDMODALIDADCONTRATO,BHABILITADO) Values(@NOMBRE,@APPATERNO,@APMATERNO,@DIRECCION,@TELEFONOCELULAR,@TELEFONOFIJO,@EMAIL,@IIDSEXO,@FECHACONTRATO,@FOTO,@IIDMODALIDADCONTRATO,@BHABILITADO)";
+                   
+                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    //comando.Parameters.AddWithValue("@IIDALUMNO", IIDALUMNO);
+                    comando.Parameters.AddWithValue("@NOMBRE", NOMBRE);
+                    comando.Parameters.AddWithValue("@APPATERNO", APPATERNO);
+                    comando.Parameters.AddWithValue("@APMATERNO", APMATERNO);
+                    comando.Parameters.AddWithValue("@DIRECCION", DIRECCION);
+                    comando.Parameters.AddWithValue("@TELEFONOCELULAR", TELEFONOCELULAR);
+                    comando.Parameters.AddWithValue("@TELEFONOFIJO", TELEFONOFIJO);
+                    comando.Parameters.AddWithValue("@EMAIL", EMAIL);
+                    comando.Parameters.AddWithValue("@IIDSEXO", IIDSEXO);
+                    comando.Parameters.AddWithValue("@FECHACONTRATO", FECHACONTRATO);
+                    comando.Parameters.AddWithValue("@FOTO", FOTO);
+                    comando.Parameters.AddWithValue("@IIDMODALIDADCONTRATO", IIDMODALIDADCONTRATO);
+                    comando.Parameters.AddWithValue("@BHABILITADO", BHABILITADO);
+                    resultado = comando.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("insertarAlumno");
+                return 0;
+            }
+        }
+
+        public int actualizarDocente(Docente docente)
+        {
+            int resultado = 0;
+            try
+            {
+                int IIDDOCENTE = docente.IIDDOCENTE;
+                string NOMBRE = docente.NOMBRE;
+                string APPATERNO = docente.APPATERNO;
+                string APMATERNO = docente.APMATERNO;
+                string DIRECCION = docente.DIRECCION;
+                string TELEFONOCELULAR = docente.TELEFONOCELULAR;
+                string TELEFONOFIJO = docente.TELEFONOFIJO;
+                string EMAIL = docente.EMAIL;
+                int IIDSEXO = docente.IIDSEXO;
+                DateTime FECHACONTRATO = docente.FECHACONTRATO;
+                byte[] FOTO = docente.FOTO;
+                int IIDMODALIDADCONTRATO = docente.IIDMODALIDADCONTRATO;
+                //int BHABILITADO = docente.BHABILITADO;
+
+
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    string strCadSQL = @"update Docente  set NOMBRE=@NOMBRE,APPATERNO=@APPATERNO,APMATERNO=@APMATERNO,DIRECCION=@DIRECCION,TELEFONOCELULAR=@TELEFONOCELULAR,TELEFONOFIJO=@TELEFONOFIJO,EMAIL=@EMAIL,IIDSEXO=@IIDSEXO,FECHACONTRATO=@FECHACONTRATO,FOTO=@FOTO,IIDMODALIDADCONTRATO=@IIDMODALIDADCONTRATO WHERE IIDDOCENTE=@IIDDOCENTE";
+                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    comando.Parameters.AddWithValue("@IIDDOCENTE", IIDDOCENTE);
+                    comando.Parameters.AddWithValue("@NOMBRE", NOMBRE);
+                    comando.Parameters.AddWithValue("@APPATERNO", APPATERNO);
+                    comando.Parameters.AddWithValue("@APMATERNO", APMATERNO);
+                    comando.Parameters.AddWithValue("@DIRECCION", DIRECCION);
+                    comando.Parameters.AddWithValue("@TELEFONOCELULAR", TELEFONOCELULAR);
+                    comando.Parameters.AddWithValue("@TELEFONOFIJO", TELEFONOFIJO);
+                    comando.Parameters.AddWithValue("@EMAIL", EMAIL);
+                    comando.Parameters.AddWithValue("@IIDSEXO", IIDSEXO);
+                    comando.Parameters.AddWithValue("@FECHACONTRATO", FECHACONTRATO);
+                    comando.Parameters.AddWithValue("@FOTO", FOTO);
+                    comando.Parameters.AddWithValue("@IIDMODALIDADCONTRATO", IIDMODALIDADCONTRATO);
+                    //comando.Parameters.AddWithValue("@BHABILITADO", BHABILITADO);
+                    resultado = comando.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("actualizarDocente");
+                return 0;
+            }
+        }
+
+        public int insertarAlumno(Alumno alumno)
 		{
 			int resultado = 0;
 			try
@@ -108,7 +211,7 @@ namespace DConexionBase3
 				using (SqlConnection conexion = new SqlConnection(cadenaConexion))
 				{
 					conexion.Open();
-					string strCadSQL = @"INSERT INTO Periodo (NOMBRE,FECHAINICIO,FECHAFIN,BHABILITADO) Values(@NOMBRE,@FECHAINICIO,@FECHAFIN,@BHABILITADO)";
+					string strCadSQL = @"INSERT INTO Alumno (NOMBRE,APPATERNO,APMATERNO,FECHANACIMIENTO,IIDSEXO,TELEFONOPADRE,TELEFONOMADRE,NUMEROHERMANOS,BHABILITADO) Values(@NOMBRE,@APPATERNO,@APMATERNO,@FECHANACIMIENTO,@IIDSEXO,@TELEFONOPADRE,@TELEFONOMADRE,@NUMEROHERMANOS,@BHABILITADO)";
 					SqlCommand comando = new SqlCommand(strCadSQL, conexion);
 					//comando.Parameters.AddWithValue("@IIDALUMNO", IIDALUMNO);
 					comando.Parameters.AddWithValue("@NOMBRE", NOMBRE);
@@ -132,6 +235,30 @@ namespace DConexionBase3
 			}
 		}
 
+		public int eliminarAlumno(int IIDALUMNO)
+		{
+			int resultado = 0;
+			try
+			{
+				string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+				using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+				{
+					conexion.Open();
+					string strCadSQL = @"UPDATE Alumno Set BHABILITADO=0 WHERE IIDALUMNO=@IIDALUMNO";
+					SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+					comando.Parameters.AddWithValue("@IIDALUMNO", IIDALUMNO);
+					resultado = comando.ExecuteNonQuery();
+					conexion.Close();
+				}
+				return resultado;
+			}
+			catch (Exception)
+			{
+				Console.WriteLine("eliminarAlumno");
+				return 0;
+			}
+		}
+
 		public int actualizarAlumno(Alumno alumno)
 		{
 			int resultado = 0;
@@ -151,7 +278,7 @@ namespace DConexionBase3
 				using (SqlConnection conexion = new SqlConnection(cadenaConexion))
 				{
 					conexion.Open();
-					string strCadSQL = @"UPDATE Curso Set NOMBRE=@NOMBRE,APPATERNO=@APPATERNO,APMATERNO=@APMATERNO,FECHANACIMIENTO=@FECHANACIMIENTO,IIDSEXO=@IIDSEXO,TELEFONOPADRE=@TELEFONOPADRE,TELEFONOMADRE=@TELEFONOMADRE,NUMEROHERMANOS=@NUMEROHERMANOS WHERE IIDALUMNO=@IIDALUMNO";
+					string strCadSQL = @"UPDATE Alumno Set NOMBRE=@NOMBRE,APPATERNO=@APPATERNO,APMATERNO=@APMATERNO,FECHANACIMIENTO=@FECHANACIMIENTO,IIDSEXO=@IIDSEXO,TELEFONOPADRE=@TELEFONOPADRE,TELEFONOMADRE=@TELEFONOMADRE,NUMEROHERMANOS=@NUMEROHERMANOS WHERE IIDALUMNO=@IIDALUMNO";
 					SqlCommand comando = new SqlCommand(strCadSQL, conexion);
 					comando.Parameters.AddWithValue("@IIDALUMNO", IIDALUMNO);
 					comando.Parameters.AddWithValue("@NOMBRE", NOMBRE);
@@ -168,7 +295,7 @@ namespace DConexionBase3
 				}
 				return resultado;
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				Console.WriteLine("actualizarAlumno");
 				return 0;
@@ -319,7 +446,7 @@ namespace DConexionBase3
 
 		public DataTable obtenerAlumnoId(int id)
 		{
-			string strCadSQL = @"SELECT * FROM Alumno WHERE BHABILITADO=1 AND IIDALUMNO=" + id;
+			string strCadSQL = @"SELECT IIDALUMNO as IID, * FROM Alumno WHERE BHABILITADO=1 AND IIDALUMNO=" + id;
 			return obtenerTablaGenerico(strCadSQL);
 		}
 
@@ -360,7 +487,37 @@ namespace DConexionBase3
 			return obtenerTablaGenerico(strCadSQL);
 		}
 
-		public DataTable obtenerDocentes()
+        public DataTable obtenerDocentesId(int id)
+        {
+            string strCadSQL = @"SELECT IIDDOCENTE as IID, * FROM Docente WHERE BHABILITADO=1 AND IIDDOCENTE=" + id;
+            return obtenerTablaGenerico(strCadSQL);
+        }
+
+        public int eliminarDocente(int IIDDOCENTE)
+        {
+            int resultado = 0;
+            try
+            {
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    string strCadSQL = @"UPDATE Docente set BHABILITADO=0 WHERE IIDDOCENTE=@IIDDOCENTE";
+                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    comando.Parameters.AddWithValue("@IIDDOCENTE", IIDDOCENTE);
+                    resultado = comando.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                return resultado;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("eliminarDocente");
+                return 0;
+            }
+        }
+
+        public DataTable obtenerDocentes()
 		{
 			string strCadSQL = @"SELECT IIDDOCENTE as IID, * FROM Docente WHERE BHABILITADO=1";
 			return obtenerTablaGenerico(strCadSQL);

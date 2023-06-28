@@ -9,7 +9,8 @@ namespace Models
 {
 	public class Docente
 	{
-		public int IID { get; set; }
+        public int IIDDOCENTE { get; set; }
+        public int IID { get; set; }
 		public string NOMBRE { get; set; }
 		public string APPATERNO { get; set; }
 		public string APMATERNO { get; set; }
@@ -19,8 +20,10 @@ namespace Models
 		public string EMAIL { get; set; }
 		public int IIDSEXO { get; set; }
 		public DateTime FECHACONTRATO { get; set; }
-		public byte[] FOTO { get; set; }
-		public int IIDMODALIDADCONTRATO { get; set; }
+        public string FECHACONTRATOSTRING { get; set; }
+        public byte[] FOTO { get; set; }
+        public string FOTOSTRING { get; set; }
+        public int IIDMODALIDADCONTRATO { get; set; }
 		public int BHABILITADO { get; set; }
 		public string IIDTIPOUSUARIO { get; set; }
 		public int bTieneUsuario { get; set; }

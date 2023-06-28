@@ -3,18 +3,6 @@
     changeMonth: true,
     changeYear: true
 });
-function llenarCombo(data, control, primerElemento = 1) {
-    let html = '';
-    html += '<option value="" disabled>--Seleccione elemento--</option>';
-    for (let i = 0; i < data.length; i++) {
-        if (primerElemento == i) {
-            html += '<option value="' + data[i].IID + '" selected>' + data[i].NOMBRE + '</option>';
-        } else {
-            html += '<option value="' + data[i].IID + '">' + data[i].NOMBRE + '</option>';
-        }
-    }
-    control.innerHTML = html;
-}
 
 function llenarCombobox(data) {
     let cbocombollenar = document.getElementById('cbocombollenar');

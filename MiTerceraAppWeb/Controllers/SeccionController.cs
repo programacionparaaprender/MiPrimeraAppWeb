@@ -22,7 +22,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Seccion> secciones = new List<Seccion>();
+				List<SeccionModels> secciones = new List<SeccionModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerSeccion();
 
@@ -31,8 +31,8 @@ namespace MiTerceraAppWeb.Controllers
 					int IID = int.Parse(row["IID"].ToString());
 					string NOMBRE = row["NOMBRE"].ToString();
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
-					Seccion periodo;
-					periodo = new Seccion { IID = IID, NOMBRE = NOMBRE, BHABILITADO = BHABILITADO };
+                    SeccionModels periodo;
+					periodo = new SeccionModels { IID = IID, NOMBRE = NOMBRE, BHABILITADO = BHABILITADO };
 					secciones.Add(periodo);
 				}
 				return new JsonResult { Data = secciones, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
