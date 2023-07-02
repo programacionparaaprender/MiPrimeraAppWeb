@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Periodo Grado Curso";
+}
+
+<h2>Periodo Grado Curso</h2>
+<link href="~/Content/datatables.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar
+</button>
+<div id="idtabla"></div>
+<div id="tabla-curso"></div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Periodo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table style="width: 80%; margin: auto">
+                    <tr>
+                        <td width="40%">Id Periodo Grado Curso</td>
+                        <td width="60%"><input class="borrar" type="text" id="txtIdPeriodoGradoCurso" readonly /></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Nombre Periodo</td>
+                        <td><select class="borrar obligatorio" id="cboPeriodo"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Nombre Grado</td>
+                        <td><select class="borrar obligatorio" id="cboGrado"></select></td>
+                    </tr>
+                    <tr>
+                        <td>Ingrese Nombre Curso</td>
+                        <td><select class="borrar obligatorio" id="cboCurso"></select></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button id="btnAceptar" onclick="agregar()" type="button" class="btn btn-success">Aceptar</button>
+                    <button id="btnCancelar" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/datatables.min.js"></script>
+<script src="~/Scripts/periodogradocurso.js"></script>
+

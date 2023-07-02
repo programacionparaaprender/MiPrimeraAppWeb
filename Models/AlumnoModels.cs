@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MiTerceraAppWeb.Models
 {
-	public class Alumno
+	public class AlumnoModels
 	{
 		public int IID { get; set; }
 		public int IIDALUMNO { get; set; }

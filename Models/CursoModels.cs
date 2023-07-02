@@ -5,12 +5,11 @@ using System.Web;
 
 namespace Models
 {
-	public class Periodo
+	public class CursoModels
 	{
-		public int IIDPERIODO { get; set; }
+		public int IIDCURSO { get; set; }
 		public string NOMBRE { get; set; }
-		public DateTime FECHAINICIO { get; set; }
-		public DateTime FECHAFIN { get; set; }
+		public string DESCRIPCION { get; set; }
 		public int BHABILITADO { get; set; }
 	}
 }

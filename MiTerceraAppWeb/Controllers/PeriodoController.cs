@@ -98,7 +98,7 @@ namespace MiTerceraAppWeb.Controllers
 			}
 		}
 
-		public JsonResult guardarDatos(Periodo periodo)
+		public JsonResult guardarDatos(PeriodoModels periodo)
 		{
 			try
 			{

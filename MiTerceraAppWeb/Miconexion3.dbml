@@ -17,6 +17,9 @@
       <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Grado_GradoSeccion" Member="GradoSeccion" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="GradoSeccion" />
+      <Association Name="Grado_PeriodoGradoCurso" Member="PeriodoGradoCurso" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="PeriodoGradoCurso" />
+      <Association Name="Grado_GradoSeccion1" Member="GradoSeccion1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="GradoSeccion1" />
+      <Association Name="Grado_Matricula" Member="Matricula" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Matricula" />
     </Type>
   </Table>
   <Table Name="dbo.Seccion" Member="Seccion">
@@ -25,6 +28,8 @@
       <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Seccion_GradoSeccion" Member="GradoSeccion" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="GradoSeccion" />
+      <Association Name="Seccion_GradoSeccion1" Member="GradoSeccion1" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="GradoSeccion1" />
+      <Association Name="Seccion_Matricula" Member="Matricula" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="Matricula" />
     </Type>
   </Table>
   <Table Name="dbo.Grado" Member="Grado1">
@@ -33,6 +38,129 @@
       <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Grado1_GradoSeccion" Member="GradoSeccion" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="GradoSeccion" />
+      <Association Name="Grado1_PeriodoGradoCurso" Member="PeriodoGradoCurso" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="PeriodoGradoCurso" />
+      <Association Name="Grado1_GradoSeccion1" Member="GradoSeccion1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="GradoSeccion1" />
+      <Association Name="Grado1_Matricula" Member="Matricula" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Matricula" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PeriodoGradoCurso" Member="PeriodoGradoCurso">
+    <Type Name="PeriodoGradoCurso">
+      <Column Name="IID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IIDPERIODO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDGRADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDCURSO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grado_PeriodoGradoCurso" Member="Grado" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado" IsForeignKey="true" />
+      <Association Name="Grado1_PeriodoGradoCurso" Member="Grado1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado1" IsForeignKey="true" />
+      <Association Name="Periodo_PeriodoGradoCurso" Member="Periodo" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="Periodo" IsForeignKey="true" />
+      <Association Name="Curso_PeriodoGradoCurso" Member="Curso" ThisKey="IIDCURSO" OtherKey="IIDCURSO" Type="Curso" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Periodo" Member="Periodo">
+    <Type Name="Periodo">
+      <Column Name="IIDPERIODO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="FECHAINICIO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FECHAFIN" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Periodo_PeriodoGradoCurso" Member="PeriodoGradoCurso" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="PeriodoGradoCurso" />
+      <Association Name="Periodo_GradoSeccionAula" Member="GradoSeccionAula" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="GradoSeccionAula" />
+      <Association Name="Periodo_Matricula" Member="Matricula" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="Matricula" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Curso" Member="Curso">
+    <Type Name="Curso">
+      <Column Name="IIDCURSO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DESCRIPCION" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Curso_PeriodoGradoCurso" Member="PeriodoGradoCurso" ThisKey="IIDCURSO" OtherKey="IIDCURSO" Type="PeriodoGradoCurso" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GradoSeccionAula" Member="GradoSeccionAula">
+    <Type Name="GradoSeccionAula">
+      <Column Name="IID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IIDPERIODO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDGRADOSECCION" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDAULA" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDDOCENTE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDCURSO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Periodo_GradoSeccionAula" Member="Periodo" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="Periodo" IsForeignKey="true" />
+      <Association Name="Aula_GradoSeccionAula" Member="Aula" ThisKey="IIDAULA" OtherKey="IIDAULA" Type="Aula" IsForeignKey="true" />
+      <Association Name="Docente_GradoSeccionAula" Member="Docente" ThisKey="IIDDOCENTE" OtherKey="IIDDOCENTE" Type="Docente" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GradoSeccion" Member="GradoSeccion1">
+    <Type Name="GradoSeccion1">
+      <Column Name="IID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IIDGRADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDSECCION" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Grado_GradoSeccion1" Member="Grado" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado" IsForeignKey="true" />
+      <Association Name="Grado1_GradoSeccion1" Member="Grado1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado1" IsForeignKey="true" />
+      <Association Name="Seccion_GradoSeccion1" Member="Seccion" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="Seccion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Aula" Member="Aula">
+    <Type Name="Aula">
+      <Column Name="IIDAULA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="Aula_GradoSeccionAula" Member="GradoSeccionAula" ThisKey="IIDAULA" OtherKey="IIDAULA" Type="GradoSeccionAula" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Docente" Member="Docente">
+    <Type Name="Docente">
+      <Column Name="IIDDOCENTE" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="APPATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="APMATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="DIRECCION" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="TELEFONOCELULAR" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TELEFONOFIJO" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IIDSEXO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FECHACONTRATO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FOTO" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IIDMODALIDADCONTRATO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDTIPOUSUARIO" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="bTieneUsuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Docente_GradoSeccionAula" Member="GradoSeccionAula" ThisKey="IIDDOCENTE" OtherKey="IIDDOCENTE" Type="GradoSeccionAula" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Alumno" Member="Alumno">
+    <Type Name="Alumno">
+      <Column Name="IIDALUMNO" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NOMBRE" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="APPATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="APMATERNO" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="FECHANACIMIENTO" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IIDSEXO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TELEFONOPADRE" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TELEFONOMADRE" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="NUMEROHERMANOS" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDTIPOUSUARIO" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="bTieneUsuario" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Alumno_Matricula" Member="Matricula" ThisKey="IIDALUMNO" OtherKey="IIDALUMNO" Type="Matricula" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Matricula" Member="Matricula">
+    <Type Name="Matricula">
+      <Column Name="IIDMATRICULA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IIDPERIODO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDGRADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDSECCION" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IIDALUMNO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FECHA" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Alumno_Matricula" Member="Alumno" ThisKey="IIDALUMNO" OtherKey="IIDALUMNO" Type="Alumno" IsForeignKey="true" />
+      <Association Name="Grado_Matricula" Member="Grado" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado" IsForeignKey="true" />
+      <Association Name="Grado1_Matricula" Member="Grado1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado1" IsForeignKey="true" />
+      <Association Name="Periodo_Matricula" Member="Periodo" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="Periodo" IsForeignKey="true" />
+      <Association Name="Seccion_Matricula" Member="Seccion" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="Seccion" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

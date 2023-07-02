@@ -25,7 +25,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Alumno> alumnos = new List<Alumno>();
+				List<AlumnoModels> alumnos = new List<AlumnoModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerAlumnos(sexo);
 				foreach (DataRow row in dt.Rows)
@@ -42,9 +42,9 @@ namespace MiTerceraAppWeb.Controllers
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
 					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
 					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-					Alumno periodo;
-					periodo = new Alumno
-					{
+					AlumnoModels periodo;
+					periodo = new AlumnoModels
+                    {
 						IIDALUMNO = IIDALUMNO,
 						NOMBRE = NOMBRE,
 						APPATERNO = APPATERNO,
@@ -71,7 +71,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Alumno> alumnos = new List<Alumno>();
+				List<AlumnoModels> alumnos = new List<AlumnoModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerAlumnos(nombre);
 				//[IIDALUMNO][int] IDENTITY(1, 1) NOT NULL,
@@ -100,9 +100,9 @@ namespace MiTerceraAppWeb.Controllers
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
 					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
 					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-					Alumno periodo;
-					periodo = new Alumno
-					{
+                    AlumnoModels periodo;
+					periodo = new AlumnoModels
+                    {
 						IIDALUMNO = IIDALUMNO,
 						NOMBRE = NOMBRE,
 						APPATERNO = APPATERNO,
@@ -129,7 +129,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Alumno> alumnos = new List<Alumno>();
+				List<AlumnoModels> alumnos = new List<AlumnoModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerAlumnos();
 				foreach (DataRow row in dt.Rows)
@@ -147,9 +147,9 @@ namespace MiTerceraAppWeb.Controllers
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
 					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
 					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-					Alumno periodo;
-					periodo = new Alumno
-					{
+                    AlumnoModels periodo;
+					periodo = new AlumnoModels
+                    {
 						IID = IID,
 						IIDALUMNO = IIDALUMNO,
 						NOMBRE = NOMBRE,
@@ -178,7 +178,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Alumno> alumnos = new List<Alumno>();
+				List<AlumnoModels> alumnos = new List<AlumnoModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerAlumnoId(id);
 				foreach (DataRow row in dt.Rows)
@@ -196,9 +196,9 @@ namespace MiTerceraAppWeb.Controllers
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
 					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
 					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-					Alumno periodo;
-					periodo = new Alumno
-					{
+                    AlumnoModels periodo;
+					periodo = new AlumnoModels
+                    {
 						IID = IID,
 						IIDALUMNO = IIDALUMNO,
 						NOMBRE = NOMBRE,
@@ -253,7 +253,7 @@ namespace MiTerceraAppWeb.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult guardarDatos(Alumno alumno)
+		public JsonResult guardarDatos(AlumnoModels alumno)
 		{
 			try
 			{

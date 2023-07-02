@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Models
 {
-	public class Docente
+	public class DocenteModels
 	{
         public int IIDDOCENTE { get; set; }
         public int IID { get; set; }

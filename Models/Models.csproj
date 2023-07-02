@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alumno.cs" />
-    <Compile Include="Curso.cs" />
-    <Compile Include="Docente.cs" />
+    <Compile Include="AlumnoModels.cs" />
+    <Compile Include="CursoModels.cs" />
+    <Compile Include="DocenteModels.cs" />
     <Compile Include="ModalidadContrato.cs" />
-    <Compile Include="Periodo.cs" />
+    <Compile Include="PeriodoModels.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeccionModels.cs" />

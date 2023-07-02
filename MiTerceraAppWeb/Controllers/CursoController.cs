@@ -130,7 +130,7 @@ namespace MiTerceraAppWeb.Controllers
 			return cursos;
 		}
 
-		public JsonResult guardarDatos(Curso curso)
+		public JsonResult guardarDatos(CursoModels curso)
 		{
 			try
 			{

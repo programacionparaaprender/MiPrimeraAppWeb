@@ -29,7 +29,7 @@ namespace DConexionBase3
 			return obtenerTablaGenerico(strCadSQL);
 		}
 
-		public int actualizarCurso(Curso curso)
+		public int actualizarCurso(CursoModels curso)
 		{
 			int resultado = 0;
 			try
@@ -60,7 +60,7 @@ namespace DConexionBase3
 			}
 		}
 
-		public int insertarCurso(Curso curso)
+		public int insertarCurso(CursoModels curso)
 		{
 			int resultado = 0;
 			try
@@ -89,7 +89,7 @@ namespace DConexionBase3
 			}
 		}
 
-        public int insertarDocente(Docente docente)
+        public int insertarDocente(DocenteModels docente)
         {
             int resultado = 0;
             try
@@ -141,7 +141,7 @@ namespace DConexionBase3
             }
         }
 
-        public int actualizarDocente(Docente docente)
+        public int actualizarDocente(DocenteModels docente)
         {
             int resultado = 0;
             try
@@ -192,7 +192,7 @@ namespace DConexionBase3
             }
         }
 
-        public int insertarAlumno(Alumno alumno)
+        public int insertarAlumno(AlumnoModels alumno)
 		{
 			int resultado = 0;
 			try
@@ -259,7 +259,7 @@ namespace DConexionBase3
 			}
 		}
 
-		public int actualizarAlumno(Alumno alumno)
+		public int actualizarAlumno(AlumnoModels alumno)
 		{
 			int resultado = 0;
 			try
@@ -297,12 +297,12 @@ namespace DConexionBase3
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("actualizarAlumno");
+				Console.WriteLine("actualizarAlumno " +ex.Message);
 				return 0;
 			}
 		}
 
-		public int insertarPeriodo(Periodo periodo)
+		public int insertarPeriodo(PeriodoModels periodo)
 		{
 			int resultado = 0;
 			try
@@ -333,7 +333,7 @@ namespace DConexionBase3
 			}
 		}
 
-		public int actualizarPeriodo(Periodo periodo)
+		public int actualizarPeriodo(PeriodoModels periodo)
 		{
 			int resultado = 0;
 			try

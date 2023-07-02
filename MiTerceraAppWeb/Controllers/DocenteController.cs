@@ -53,7 +53,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Docente> docentes = new List<Docente>();
+				List<DocenteModels> docentes = new List<DocenteModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerDocentes(ModalidadContrato);
 				foreach (DataRow row in dt.Rows)
@@ -74,8 +74,8 @@ namespace MiTerceraAppWeb.Controllers
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
 					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
 					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-					Docente periodo;
-					periodo = new Docente
+					DocenteModels periodo;
+					periodo = new DocenteModels
 					{
 						IID = IID,
 						NOMBRE = NOMBRE,
@@ -106,7 +106,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Docente> docentes = new List<Docente>();
+				List<DocenteModels> docentes = new List<DocenteModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerDocentes();
 				foreach (DataRow row in dt.Rows)
@@ -129,9 +129,9 @@ namespace MiTerceraAppWeb.Controllers
 					int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
 					string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
 					int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-					Docente periodo;
-					periodo = new Docente
-					{
+					DocenteModels periodo;
+					periodo = new DocenteModels
+                    {
 						IID = IID,
 						NOMBRE = NOMBRE,
 						APPATERNO = APPATERNO,
@@ -159,7 +159,7 @@ namespace MiTerceraAppWeb.Controllers
 		}
 
 
-        public JsonResult guardarDatos(Docente docente)
+        public JsonResult guardarDatos(DocenteModels docente)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace MiTerceraAppWeb.Controllers
         {
             try
             {
-                List<Docente> docentes = new List<Docente>();
+                List<DocenteModels> docentes = new List<DocenteModels>();
                 DBAcceso db = new DBAcceso();
                 DataTable dt = db.obtenerDocentesId(id);
                 foreach (DataRow row in dt.Rows)
@@ -200,8 +200,8 @@ namespace MiTerceraAppWeb.Controllers
                     int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
                     string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
                     int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-                    Docente periodo;
-                    periodo = new Docente
+                    DocenteModels periodo;
+                    periodo = new DocenteModels
                     {
                         IID = IID,
                         IIDDOCENTE = IIDDOCENTE,

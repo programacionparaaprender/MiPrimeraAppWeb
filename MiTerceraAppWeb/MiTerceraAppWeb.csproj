@@ -140,15 +140,18 @@
     </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\gradoseccion.js" />
+    <Content Include="Scripts\gradoseccionaula.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\matricula.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\periodo.js" />
+    <Content Include="Scripts\periodogradocurso.js" />
     <Content Include="Scripts\seccion.js" />
     <Content Include="Scripts\sumar.js" />
     <Content Include="Scripts\tabla.js" />
@@ -160,8 +163,11 @@
     <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\DocenteController.cs" />
+    <Compile Include="Controllers\GradoSeccionAulaController.cs" />
     <Compile Include="Controllers\GradoSeccionController.cs" />
+    <Compile Include="Controllers\MatriculaController.cs" />
     <Compile Include="Controllers\PeriodoController.cs" />
+    <Compile Include="Controllers\PeriodoGradoCursoController.cs" />
     <Compile Include="Controllers\RepasoHTMLController.cs" />
     <Compile Include="Controllers\SeccionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,6 +225,9 @@
     <Content Include="Views\Docente\Index.cshtml" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <Content Include="Views\GradoSeccion\Index.cshtml" />
+    <Content Include="Views\PeriodoGradoCurso\Index.cshtml" />
+    <Content Include="Views\GradoSeccionAula\Index.cshtml" />
+    <Content Include="Views\Matricula\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

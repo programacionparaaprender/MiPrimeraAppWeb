@@ -1,4 +1,16 @@
-﻿function borrarDatos(className = 'borrar') {
+﻿
+function obtenerPorId(element){
+    return document.getElementById(element);
+}
+
+function EmptyHTMLElement(element){
+    if(element.value == ""){
+        return true;
+    }
+    return false;
+}
+
+function borrarDatos(className = 'borrar') {
     let controles = document.getElementsByClassName(className);
     for (let control of controles) {
         control.value = '';
@@ -27,7 +39,7 @@ function llenarCombo(data, control, primerElemento = 1) {
     let html = '';
     html += '<option value="" disabled>--Seleccione elemento--</option>';
     for (let i = 0; i < data.length; i++) {
-        if (primerElemento == i) {
+        if (primerElemento == data[i].IID) {
             html += '<option value="' + data[i].IID + '" selected>' + data[i].NOMBRE + '</option>';
         } else {
             html += '<option value="' + data[i].IID + '">' + data[i].NOMBRE + '</option>';
@@ -36,10 +48,10 @@ function llenarCombo(data, control, primerElemento = 1) {
     control.innerHTML = html;
 }
 
-function llenarComboboxElement(data, element) {
+function llenarComboboxElement(data, element, elementoSeleccionado = 1) {
     let cbocombollenar = document.getElementById(element);
     if (data != null && data.length > 0) {
-        llenarCombo(data, cbocombollenar);
+        llenarCombo(data, cbocombollenar, elementoSeleccionado);
     } else {
         cbocombollenar.innerHTML = ''
     }
