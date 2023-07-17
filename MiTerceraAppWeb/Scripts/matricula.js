@@ -1,5 +1,8 @@
-﻿function listar() {
-    $.get("Matricula/listar", function (data) {
+﻿
+var base_url = window.location.origin;
+const url = base_url +"/Matricula";
+function listar() {
+    $.get(url + "/listar", function (data) {
         try {
             let columns = ["Id", "Nombre Periodo", "Nombre Grado", "Nombre Sección", "Nombre Alumno"];
             llenarTablaData(columns, data);
@@ -7,7 +10,7 @@
             console.log(e);
         }
     });
-    $.get("Matricula/listarPeriodo", function (data) {
+    $.get(url + "/listarPeriodo", function (data) {
         try {
             llenarComboboxElement(data, 'cboPeriodo');
         } catch (e) {
@@ -15,7 +18,7 @@
         }
     });
 
-    $.get("Matricula/listarGradoSeccion", function (data) {
+    $.get(url + "/listarGradoSeccion", function (data) {
         try {
             llenarComboboxElement(data, 'cboGradoSeccion');
         } catch (e) {
@@ -23,7 +26,7 @@
         }
     });
 
-    $.get("Matricula/listarAlumnos", function (data) {
+    $.get(url + "/listarAlumnos", function (data) {
         try {
             llenarComboboxElement(data, 'cboAlumno');
         } catch (e) {
@@ -37,7 +40,7 @@ function abrirModal(IID = 0) {
         borrarDatos();
         
     } else {
-        $.get("Matricula/recuperarInformacion?id=" + IID, function (data) {
+        $.get(url + "/recuperarInformacion?id=" + IID, function (data) {
 
             obtenerPorId('txtIdMatricula').value = data[0].IID;
             obtenerPorId('cboPeriodo').value = data[0].IIDPERIODO;
@@ -49,11 +52,53 @@ function abrirModal(IID = 0) {
 
 function eliminar(id) {
     if (confirm('¿Desea realmente eliminar?') == 1) {
-        $.get("GradoSeccionAula/eliminarGradoSeccionAula?id=" + id, function (data) {
+        $.get(url + "/eliminarMatricula?id=" + id, function (data) {
             listar();
         });
     }
 }
+
+function agregar() {
+    try {
+        if (datosObligatorios()) {
+            if (confirm('¿Desea realmente guardar?') == 1) {
+                let frm = new FormData();
+
+                let IIDMATRICULA = obtenerPorId('txtIdMatricula').value;
+                let IIDPERIODO = obtenerPorId('cboPeriodo').value;
+                let IIDGRADOSECCION = obtenerPorId('cboGradoSeccion').value;
+                let IIDALUMNO = obtenerPorId('cboAlumno').value;
+
+                frm.append('IIDMATRICULA', IIDMATRICULA);
+                frm.append('IIDPERIODO', IIDPERIODO);
+                frm.append('IIDGRADOSECCION', IIDGRADOSECCION);
+                frm.append('IIDALUMNO', IIDALUMNO);
+                frm.append('BHABILITADO', 1);
+                $.ajax({
+                    type: "POST",
+                    url: url + "/guardarDatos",
+                    data: frm,
+                    //dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data != 0) {
+                            alert('guardado con exito.');
+                            listar();
+                            document.getElementById('btnCancelar').click();
+                        } else {
+                            alert('ocurrio un error.');
+                        }
+                    }
+                });
+            }
+        }
+    } catch (e) {
+        console.log(e);
+        alert('ocurrio un error al registrar.');
+    }
+}
+
 
 
 listar();

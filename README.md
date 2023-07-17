@@ -14,3 +14,9 @@
 >- https://stackoverflow.com/questions/73251481/bootstrap-5-modal-wont-dismiss
 >- https://getbootstrap.com/docs/5.0/components/modal/
 
+### base url en javascript
+>- https://stackoverflow.com/questions/25203124/how-to-get-base-url-with-jquery-or-javascript
+
+
+### diccionarios en C#
+>- https://www.techiedelight.com/es/iterate-over-dictionary-csharp/

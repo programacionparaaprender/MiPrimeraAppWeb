@@ -69,6 +69,9 @@ namespace MiTerceraAppWeb
     partial void InsertMatricula(Matricula instance);
     partial void UpdateMatricula(Matricula instance);
     partial void DeleteMatricula(Matricula instance);
+    partial void InsertDetalleMatricula(DetalleMatricula instance);
+    partial void UpdateDetalleMatricula(DetalleMatricula instance);
+    partial void DeleteDetalleMatricula(DetalleMatricula instance);
     #endregion
 		
 		public Miconexion3DataContext() : 
@@ -202,6 +205,14 @@ namespace MiTerceraAppWeb
 			get
 			{
 				return this.GetTable<Matricula>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DetalleMatricula> DetalleMatricula
+		{
+			get
+			{
+				return this.GetTable<DetalleMatricula>();
 			}
 		}
 	}
@@ -1673,6 +1684,8 @@ namespace MiTerceraAppWeb
 		
 		private EntitySet<PeriodoGradoCurso> _PeriodoGradoCurso;
 		
+		private EntitySet<DetalleMatricula> _DetalleMatricula;
+		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1690,6 +1703,7 @@ namespace MiTerceraAppWeb
 		public Curso()
 		{
 			this._PeriodoGradoCurso = new EntitySet<PeriodoGradoCurso>(new Action<PeriodoGradoCurso>(this.attach_PeriodoGradoCurso), new Action<PeriodoGradoCurso>(this.detach_PeriodoGradoCurso));
+			this._DetalleMatricula = new EntitySet<DetalleMatricula>(new Action<DetalleMatricula>(this.attach_DetalleMatricula), new Action<DetalleMatricula>(this.detach_DetalleMatricula));
 			OnCreated();
 		}
 		
@@ -1786,6 +1800,19 @@ namespace MiTerceraAppWeb
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Curso_DetalleMatricula", Storage="_DetalleMatricula", ThisKey="IIDCURSO", OtherKey="IIDCURSO")]
+		public EntitySet<DetalleMatricula> DetalleMatricula
+		{
+			get
+			{
+				return this._DetalleMatricula;
+			}
+			set
+			{
+				this._DetalleMatricula.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1813,6 +1840,18 @@ namespace MiTerceraAppWeb
 		}
 		
 		private void detach_PeriodoGradoCurso(PeriodoGradoCurso entity)
+		{
+			this.SendPropertyChanging();
+			entity.Curso = null;
+		}
+		
+		private void attach_DetalleMatricula(DetalleMatricula entity)
+		{
+			this.SendPropertyChanging();
+			entity.Curso = this;
+		}
+		
+		private void detach_DetalleMatricula(DetalleMatricula entity)
 		{
 			this.SendPropertyChanging();
 			entity.Curso = null;
@@ -3339,6 +3378,8 @@ namespace MiTerceraAppWeb
 		
 		private System.Nullable<int> _BHABILITADO;
 		
+		private EntitySet<DetalleMatricula> _DetalleMatricula;
+		
 		private EntityRef<Alumno> _Alumno;
 		
 		private EntityRef<Grado> _Grado;
@@ -3371,6 +3412,7 @@ namespace MiTerceraAppWeb
 		
 		public Matricula()
 		{
+			this._DetalleMatricula = new EntitySet<DetalleMatricula>(new Action<DetalleMatricula>(this.attach_DetalleMatricula), new Action<DetalleMatricula>(this.detach_DetalleMatricula));
 			this._Alumno = default(EntityRef<Alumno>);
 			this._Grado = default(EntityRef<Grado>);
 			this._Grado1 = default(EntityRef<Grado1>);
@@ -3532,6 +3574,19 @@ namespace MiTerceraAppWeb
 					this.SendPropertyChanged("BHABILITADO");
 					this.OnBHABILITADOChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Matricula_DetalleMatricula", Storage="_DetalleMatricula", ThisKey="IIDMATRICULA", OtherKey="IIDMATRICULA")]
+		public EntitySet<DetalleMatricula> DetalleMatricula
+		{
+			get
+			{
+				return this._DetalleMatricula;
+			}
+			set
+			{
+				this._DetalleMatricula.Assign(value);
 			}
 		}
 		
@@ -3701,6 +3756,330 @@ namespace MiTerceraAppWeb
 						this._IIDSECCION = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Seccion");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DetalleMatricula(DetalleMatricula entity)
+		{
+			this.SendPropertyChanging();
+			entity.Matricula = this;
+		}
+		
+		private void detach_DetalleMatricula(DetalleMatricula entity)
+		{
+			this.SendPropertyChanging();
+			entity.Matricula = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DetalleMatricula")]
+	public partial class DetalleMatricula : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IIDMATRICULA;
+		
+		private int _IIDCURSO;
+		
+		private System.Nullable<decimal> _NOTA1;
+		
+		private System.Nullable<decimal> _NOTA2;
+		
+		private System.Nullable<decimal> _NOTA3;
+		
+		private System.Nullable<decimal> _NOTA4;
+		
+		private System.Nullable<decimal> _PROMEDIO;
+		
+		private System.Nullable<int> _bhabilitado;
+		
+		private EntityRef<Curso> _Curso;
+		
+		private EntityRef<Matricula> _Matricula;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIIDMATRICULAChanging(int value);
+    partial void OnIIDMATRICULAChanged();
+    partial void OnIIDCURSOChanging(int value);
+    partial void OnIIDCURSOChanged();
+    partial void OnNOTA1Changing(System.Nullable<decimal> value);
+    partial void OnNOTA1Changed();
+    partial void OnNOTA2Changing(System.Nullable<decimal> value);
+    partial void OnNOTA2Changed();
+    partial void OnNOTA3Changing(System.Nullable<decimal> value);
+    partial void OnNOTA3Changed();
+    partial void OnNOTA4Changing(System.Nullable<decimal> value);
+    partial void OnNOTA4Changed();
+    partial void OnPROMEDIOChanging(System.Nullable<decimal> value);
+    partial void OnPROMEDIOChanged();
+    partial void OnbhabilitadoChanging(System.Nullable<int> value);
+    partial void OnbhabilitadoChanged();
+    #endregion
+		
+		public DetalleMatricula()
+		{
+			this._Curso = default(EntityRef<Curso>);
+			this._Matricula = default(EntityRef<Matricula>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IIDMATRICULA", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IIDMATRICULA
+		{
+			get
+			{
+				return this._IIDMATRICULA;
+			}
+			set
+			{
+				if ((this._IIDMATRICULA != value))
+				{
+					if (this._Matricula.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIIDMATRICULAChanging(value);
+					this.SendPropertyChanging();
+					this._IIDMATRICULA = value;
+					this.SendPropertyChanged("IIDMATRICULA");
+					this.OnIIDMATRICULAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IIDCURSO", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IIDCURSO
+		{
+			get
+			{
+				return this._IIDCURSO;
+			}
+			set
+			{
+				if ((this._IIDCURSO != value))
+				{
+					if (this._Curso.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIIDCURSOChanging(value);
+					this.SendPropertyChanging();
+					this._IIDCURSO = value;
+					this.SendPropertyChanged("IIDCURSO");
+					this.OnIIDCURSOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOTA1", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> NOTA1
+		{
+			get
+			{
+				return this._NOTA1;
+			}
+			set
+			{
+				if ((this._NOTA1 != value))
+				{
+					this.OnNOTA1Changing(value);
+					this.SendPropertyChanging();
+					this._NOTA1 = value;
+					this.SendPropertyChanged("NOTA1");
+					this.OnNOTA1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOTA2", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> NOTA2
+		{
+			get
+			{
+				return this._NOTA2;
+			}
+			set
+			{
+				if ((this._NOTA2 != value))
+				{
+					this.OnNOTA2Changing(value);
+					this.SendPropertyChanging();
+					this._NOTA2 = value;
+					this.SendPropertyChanged("NOTA2");
+					this.OnNOTA2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOTA3", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> NOTA3
+		{
+			get
+			{
+				return this._NOTA3;
+			}
+			set
+			{
+				if ((this._NOTA3 != value))
+				{
+					this.OnNOTA3Changing(value);
+					this.SendPropertyChanging();
+					this._NOTA3 = value;
+					this.SendPropertyChanged("NOTA3");
+					this.OnNOTA3Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOTA4", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> NOTA4
+		{
+			get
+			{
+				return this._NOTA4;
+			}
+			set
+			{
+				if ((this._NOTA4 != value))
+				{
+					this.OnNOTA4Changing(value);
+					this.SendPropertyChanging();
+					this._NOTA4 = value;
+					this.SendPropertyChanged("NOTA4");
+					this.OnNOTA4Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PROMEDIO", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> PROMEDIO
+		{
+			get
+			{
+				return this._PROMEDIO;
+			}
+			set
+			{
+				if ((this._PROMEDIO != value))
+				{
+					this.OnPROMEDIOChanging(value);
+					this.SendPropertyChanging();
+					this._PROMEDIO = value;
+					this.SendPropertyChanged("PROMEDIO");
+					this.OnPROMEDIOChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bhabilitado", DbType="Int")]
+		public System.Nullable<int> bhabilitado
+		{
+			get
+			{
+				return this._bhabilitado;
+			}
+			set
+			{
+				if ((this._bhabilitado != value))
+				{
+					this.OnbhabilitadoChanging(value);
+					this.SendPropertyChanging();
+					this._bhabilitado = value;
+					this.SendPropertyChanged("bhabilitado");
+					this.OnbhabilitadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Curso_DetalleMatricula", Storage="_Curso", ThisKey="IIDCURSO", OtherKey="IIDCURSO", IsForeignKey=true)]
+		public Curso Curso
+		{
+			get
+			{
+				return this._Curso.Entity;
+			}
+			set
+			{
+				Curso previousValue = this._Curso.Entity;
+				if (((previousValue != value) 
+							|| (this._Curso.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Curso.Entity = null;
+						previousValue.DetalleMatricula.Remove(this);
+					}
+					this._Curso.Entity = value;
+					if ((value != null))
+					{
+						value.DetalleMatricula.Add(this);
+						this._IIDCURSO = value.IIDCURSO;
+					}
+					else
+					{
+						this._IIDCURSO = default(int);
+					}
+					this.SendPropertyChanged("Curso");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Matricula_DetalleMatricula", Storage="_Matricula", ThisKey="IIDMATRICULA", OtherKey="IIDMATRICULA", IsForeignKey=true)]
+		public Matricula Matricula
+		{
+			get
+			{
+				return this._Matricula.Entity;
+			}
+			set
+			{
+				Matricula previousValue = this._Matricula.Entity;
+				if (((previousValue != value) 
+							|| (this._Matricula.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Matricula.Entity = null;
+						previousValue.DetalleMatricula.Remove(this);
+					}
+					this._Matricula.Entity = value;
+					if ((value != null))
+					{
+						value.DetalleMatricula.Add(this);
+						this._IIDMATRICULA = value.IIDMATRICULA;
+					}
+					else
+					{
+						this._IIDMATRICULA = default(int);
+					}
+					this.SendPropertyChanged("Matricula");
 				}
 			}
 		}

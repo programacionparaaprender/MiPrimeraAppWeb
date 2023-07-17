@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,7 +27,7 @@ namespace MiTerceraAppWeb.Controllers
                            on ma.IIDSECCION equals sec.IIDSECCION
                            join alumno in bd.Alumno
                            on ma.IIDALUMNO equals alumno.IIDALUMNO 
-                            where ma.IIDMATRICULA.Equals(1)
+                            where ma.BHABILITADO.Equals(1)
                             select new
                            {
                                IID=ma.IIDMATRICULA,
@@ -41,13 +42,18 @@ namespace MiTerceraAppWeb.Controllers
         public JsonResult recuperarInformacion(int id)
         {
             Miconexion3DataContext bd = new Miconexion3DataContext();
-            var lista = from gs in bd.Matricula.Where(p => p.IIDMATRICULA.Equals(1)).Select(p => new {
-                IID = p.IIDMATRICULA,
-                p.IIDPERIODO,
-                p.IIDGRADO,
-                p.IIDSECCION,
-                p.IIDALUMNO
-            }).ToList();
+            var lista = from gra in bd.GradoSeccion
+                        join ma in bd.Matricula
+                        on gra.IIDGRADO equals ma.IIDGRADO
+                        where gra.IIDSECCION.Equals(ma.IIDSECCION) && ma.IIDMATRICULA.Equals(id)
+                        select new
+                        {
+                            IID = ma.IIDMATRICULA,
+                            ma.IIDPERIODO,
+                            IIDGRADOSECCION = gra.IID,
+                            ma.IIDALUMNO
+                        };
+            
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
@@ -89,6 +95,77 @@ namespace MiTerceraAppWeb.Controllers
                 p.NOMBRE
             });
             return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult guardarDatos(Matricula matricula, int IIDGRADOSECCION)
+        {
+            try
+            {
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                GradoSeccion grad = bd.GradoSeccion.Where(p => p.IID.Equals(IIDGRADOSECCION)).First();
+                int IID = matricula.IIDMATRICULA;
+                matricula.IIDGRADO = grad.IIDGRADO;
+                matricula.IIDSECCION = grad.IIDSECCION;
+                
+                using (var transaccion=new TransactionScope())
+                {
+                    if (IID == 0)
+                    {
+                        bd.Matricula.InsertOnSubmit(matricula);
+                        bd.SubmitChanges();
+                        int IIDMATRICULA = matricula.IIDMATRICULA;
+
+                        var lista = bd.PeriodoGradoCurso.Where(p => p.IIDPERIODO.Equals(matricula.IIDPERIODO) && p.IIDGRADO.Equals(matricula.IIDGRADO)).Select(p=>p.IIDCURSO);
+
+                        foreach (var item in lista)
+                        {
+                            DetalleMatricula dm = new DetalleMatricula();
+                            //dm.Matricula = matricula;
+                            dm.IIDMATRICULA = IIDMATRICULA;
+                            dm.IIDCURSO = (int)item;
+                            dm.NOTA1 = 0;
+                            dm.NOTA2 = 0;
+                            dm.NOTA3 = 0;
+                            dm.NOTA4 = 0;
+                            dm.PROMEDIO = 0;
+                            dm.bhabilitado = 1;
+                            bd.DetalleMatricula.InsertOnSubmit(dm);
+                        }
+                        bd.SubmitChanges();
+                    }
+                    else
+                    {
+                        Matricula update = bd.Matricula.Where(p => p.IIDMATRICULA.Equals(IID)).First();
+                        update.IIDPERIODO = matricula.IIDPERIODO;
+                        update.IIDALUMNO = matricula.IIDALUMNO;
+                        bd.SubmitChanges();
+                    }
+                    transaccion.Complete();
+                }
+                int resultado = 1;
+                return Json(resultado, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult eliminarMatricula(int id)
+        {
+            try
+            {
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                Matricula update = bd.Matricula.Where(p => p.IIDMATRICULA.Equals(id)).First();
+                update.BHABILITADO = 0;
+                bd.SubmitChanges();
+                int resultado = 1;
+                return Json(resultado, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

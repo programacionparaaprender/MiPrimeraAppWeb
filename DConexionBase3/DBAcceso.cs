@@ -13,11 +13,49 @@ namespace DConexionBase3
 {
 	public class DBAcceso
 	{
-		//string cadena1 = @"Data Source=LUISALBERTO-PC\SQLEXPRESS;Initial Catalog=ClaseTaller;Integrated Security=True";
-		//string cadena2 = @"Data Source=LUISALBERTO-PC\SQLEXPRESS;Initial Catalog=ClaseTaller;User ID=LuisCorrea; Password=yose1342";
-		//string cadena = @"Data Source=BONE\SQLEXPRESS;Initial Catalog=TEST;Integrated Security=True";
+        //string cadena1 = @"Data Source=LUISALBERTO-PC\SQLEXPRESS;Initial Catalog=ClaseTaller;Integrated Security=True";
+        //string cadena2 = @"Data Source=LUISALBERTO-PC\SQLEXPRESS;Initial Catalog=ClaseTaller;User ID=LuisCorrea; Password=yose1342";
+        //string cadena = @"Data Source=BONE\SQLEXPRESS;Initial Catalog=TEST;Integrated Security=True";
 
-		public DataTable obtenerCursos(int IIDCURSO)
+        public int insertarMatricula(MatriculaModels m)
+        {
+            /*
+             SqlCommand cmd = new SqlCommand("spMostrarProfesor", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds, "Profesor");
+                this.dgvMostrar.DataSource = ds.Tables["Profesor"];
+             */
+            try
+            {
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                int resultado = 0;
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    String strCadSQL = @"spInsertarMatricula @IIDPERIODO,@IIDGRADO,@IIDSECCION,@IIDALUMNO,@FECHA,@BHABILITADO";
+                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@IIDPERIODO", m.IIDPERIODO);
+                    comando.Parameters.AddWithValue("@IIDGRADO", m.IIDGRADO);
+                    comando.Parameters.AddWithValue("@IIDSECCION", m.IIDSECCION);
+                    comando.Parameters.AddWithValue("@IIDALUMNO", m.IIDALUMNO);
+                    comando.Parameters.AddWithValue("@FECHA", m.FECHA);
+                    comando.Parameters.AddWithValue("@BHABILITADO", m.BHABILITADO);
+                    resultado = comando.ExecuteNonQuery();
+                    conexion.Close();
+                    return resultado;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("insertarMatricula");
+                return 0;
+            }
+        }
+
+        public DataTable obtenerCursos(int IIDCURSO)
 		{
 			string strCadSQL = @"SELECT * FROM Curso WHERE BHABILITADO=1 AND IIDCURSO =" + IIDCURSO;
 			return obtenerTablaGenerico(strCadSQL);
@@ -573,5 +611,32 @@ namespace DConexionBase3
 			}
 			return dt;
 		}
-	}
+
+        public int procedimientoAlmacenado(string metodo, string storeProcedure, Dictionary<string, object> variables)
+        {
+            try
+            {
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                int resultado = 0;
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    SqlCommand comando = new SqlCommand(storeProcedure, conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    foreach (KeyValuePair<string, object> entry in variables)
+                    {   
+                        comando.Parameters.AddWithValue(entry.Key, entry.Value);
+                    }
+                    resultado = comando.ExecuteNonQuery();
+                    conexion.Close();
+                    return resultado;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(metodo);
+                return 0;
+            }
+        }
+    }
 }

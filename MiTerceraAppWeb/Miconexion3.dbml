@@ -75,6 +75,7 @@
       <Column Name="DESCRIPCION" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Curso_PeriodoGradoCurso" Member="PeriodoGradoCurso" ThisKey="IIDCURSO" OtherKey="IIDCURSO" Type="PeriodoGradoCurso" />
+      <Association Name="Curso_DetalleMatricula" Member="DetalleMatricula" ThisKey="IIDCURSO" OtherKey="IIDCURSO" Type="DetalleMatricula" />
     </Type>
   </Table>
   <Table Name="dbo.GradoSeccionAula" Member="GradoSeccionAula">
@@ -156,11 +157,26 @@
       <Column Name="IIDALUMNO" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FECHA" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="BHABILITADO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Matricula_DetalleMatricula" Member="DetalleMatricula" ThisKey="IIDMATRICULA" OtherKey="IIDMATRICULA" Type="DetalleMatricula" />
       <Association Name="Alumno_Matricula" Member="Alumno" ThisKey="IIDALUMNO" OtherKey="IIDALUMNO" Type="Alumno" IsForeignKey="true" />
       <Association Name="Grado_Matricula" Member="Grado" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado" IsForeignKey="true" />
       <Association Name="Grado1_Matricula" Member="Grado1" ThisKey="IIDGRADO" OtherKey="IIDGRADO" Type="Grado1" IsForeignKey="true" />
       <Association Name="Periodo_Matricula" Member="Periodo" ThisKey="IIDPERIODO" OtherKey="IIDPERIODO" Type="Periodo" IsForeignKey="true" />
       <Association Name="Seccion_Matricula" Member="Seccion" ThisKey="IIDSECCION" OtherKey="IIDSECCION" Type="Seccion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DetalleMatricula" Member="DetalleMatricula">
+    <Type Name="DetalleMatricula">
+      <Column Name="IIDMATRICULA" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IIDCURSO" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NOTA1" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="NOTA2" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="NOTA3" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="NOTA4" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="PROMEDIO" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="bhabilitado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Curso_DetalleMatricula" Member="Curso" ThisKey="IIDCURSO" OtherKey="IIDCURSO" Type="Curso" IsForeignKey="true" />
+      <Association Name="Matricula_DetalleMatricula" Member="Matricula" ThisKey="IIDMATRICULA" OtherKey="IIDMATRICULA" Type="Matricula" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
