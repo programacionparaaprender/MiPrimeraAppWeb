@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DConexionBase3;
+using Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Transactions;
 using System.Web;
@@ -101,6 +104,47 @@ namespace MiTerceraAppWeb.Controllers
         {
             try
             {
+                DBAcceso acceso = new DBAcceso();
+                MatriculaModels matriculamodels = new MatriculaModels();
+                matriculamodels.IIDGRADO = matricula.IIDGRADO;
+                matriculamodels.IIDSECCION = matricula.IIDSECCION;
+                matriculamodels.IIDPERIODO = matricula.IIDPERIODO;
+                int IID = matricula.IIDMATRICULA;
+                if (IID == 0)
+                {
+                    IID = acceso.insertarMatricula(matriculamodels);
+                    var lista = acceso.obtenerPeriodoGradoCurso(matriculamodels);
+                    foreach (DataRow item in lista.Rows)
+                    {
+                        DetalleMatriculaModels dm = new DetalleMatriculaModels();
+                        dm.IIDMATRICULA = IID;
+                        dm.IIDCURSO = int.Parse(item["IIDCURSO"].ToString());
+                        dm.NOTA1 = 0;
+                        dm.NOTA2 = 0;
+                        dm.NOTA3 = 0;
+                        dm.NOTA4 = 0;
+                        dm.PROMEDIO = 0;
+                        dm.bhabilitado = 1;
+                        acceso.insertarDetalleMatricula(dm);
+                    }
+                }
+                else
+                {
+
+                }
+                int resultado = 1;
+                return Json(resultado, JsonRequestBehavior.AllowGet);
+            
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult guardarDatos2(Matricula matricula, int IIDGRADOSECCION)
+        {
+            try
+            {
                 Miconexion3DataContext bd = new Miconexion3DataContext();
                 GradoSeccion grad = bd.GradoSeccion.Where(p => p.IID.Equals(IIDGRADOSECCION)).First();
                 int IID = matricula.IIDMATRICULA;
@@ -112,10 +156,11 @@ namespace MiTerceraAppWeb.Controllers
                     if (IID == 0)
                     {
                         bd.Matricula.InsertOnSubmit(matricula);
-                        bd.SubmitChanges();
+                        //bd.SubmitChanges();
                         int IIDMATRICULA = matricula.IIDMATRICULA;
 
                         var lista = bd.PeriodoGradoCurso.Where(p => p.IIDPERIODO.Equals(matricula.IIDPERIODO) && p.IIDGRADO.Equals(matricula.IIDGRADO)).Select(p=>p.IIDCURSO);
+
 
                         foreach (var item in lista)
                         {
@@ -155,11 +200,21 @@ namespace MiTerceraAppWeb.Controllers
         {
             try
             {
+                int resultado = 0;
                 Miconexion3DataContext bd = new Miconexion3DataContext();
-                Matricula update = bd.Matricula.Where(p => p.IIDMATRICULA.Equals(id)).First();
-                update.BHABILITADO = 0;
-                bd.SubmitChanges();
-                int resultado = 1;
+                using (var transaccion = new TransactionScope())
+                {
+                    Matricula update = bd.Matricula.Where(p => p.IIDMATRICULA.Equals(id)).First();
+                    update.BHABILITADO = 0;
+                    var listaDetalleMatricula = bd.DetalleMatricula.Where(p => p.IIDMATRICULA.Equals(id));
+                    foreach (DetalleMatricula oDetalleMatricula in listaDetalleMatricula)
+                    {
+                        oDetalleMatricula.bhabilitado = 0;
+                    }
+                    bd.SubmitChanges();
+                    resultado = 1;
+                    transaccion.Complete();
+                }
                 return Json(resultado, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

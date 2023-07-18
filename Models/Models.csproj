@@ -53,6 +53,7 @@
     <Compile Include="DocenteModels.cs" />
     <Compile Include="MatriculaModels.cs" />
     <Compile Include="ModalidadContrato.cs" />
+    <Compile Include="PeriodoGradoCursoModels.cs" />
     <Compile Include="PeriodoModels.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -53,7 +53,12 @@ function abrirModal(IID = 0) {
 function eliminar(id) {
     if (confirm('¿Desea realmente eliminar?') == 1) {
         $.get(url + "/eliminarMatricula?id=" + id, function (data) {
-            listar();
+            if(data == 1){
+                alert('Se elimino correctamente');
+                listar();
+            }else {
+                alert('Ocurrio un error');
+            }
         });
     }
 }

@@ -17,6 +17,60 @@ namespace DConexionBase3
         //string cadena2 = @"Data Source=LUISALBERTO-PC\SQLEXPRESS;Initial Catalog=ClaseTaller;User ID=LuisCorrea; Password=yose1342";
         //string cadena = @"Data Source=BONE\SQLEXPRESS;Initial Catalog=TEST;Integrated Security=True";
 
+        public int insertarDetalleMatricula(DetalleMatriculaModels m)
+        {
+            try
+            {
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                int resultado = 0;
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    String strCadSQL = @"spInsertarDetalleMatricula @IIDMATRICULA,@IIDCURSO,@NOTA1,@NOTA2,@NOTA3,@NOTA4, @PROMEDIO";
+                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@IIDMATRICULA", m.IIDMATRICULA);
+                    comando.Parameters.AddWithValue("@IIDCURSO", m.IIDCURSO);
+                    comando.Parameters.AddWithValue("@NOTA1", m.NOTA1);
+                    comando.Parameters.AddWithValue("@NOTA2", m.NOTA2);
+                    comando.Parameters.AddWithValue("@NOTA3", m.NOTA3);
+                    comando.Parameters.AddWithValue("@NOTA4", m.NOTA4);
+                    comando.Parameters.AddWithValue("@PROMEDIO", m.PROMEDIO);
+                    resultado = comando.ExecuteNonQuery();
+                    conexion.Close();
+                    return resultado;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("insertarDetalleMatricula");
+                return 0;
+            }
+        }
+
+        public int actualizarMatricula(MatriculaModels m)
+        {
+            int resultado = 0;
+            string metodo = "actualizarMatricula";
+            string storeProcedure = "spActualizarMatricula";
+            try
+            {
+                string cadenaConexion = ConfigurationManager.ConnectionStrings["CadenaConexion"].ConnectionString;
+                Dictionary<string, object> variables = new Dictionary<string, object>();
+                variables.Add("@IIDMATRICULA", m.IIDMATRICULA);
+                variables.Add("@IIDPERIODO", m.IIDPERIODO);
+                variables.Add("@IIDGRADO", m.IIDGRADO);
+                variables.Add("@IIDSECCION", m.IIDSECCION);
+                variables.Add("@IIDALUMNO", m.IIDALUMNO);
+                resultado = procedimientoAlmacenado(metodo, storeProcedure, variables);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("actualizarMatricula");
+            }
+            return resultado;
+        }
+
         public int insertarMatricula(MatriculaModels m)
         {
             /*
@@ -34,16 +88,25 @@ namespace DConexionBase3
                 using (SqlConnection conexion = new SqlConnection(cadenaConexion))
                 {
                     conexion.Open();
-                    String strCadSQL = @"spInsertarMatricula @IIDPERIODO,@IIDGRADO,@IIDSECCION,@IIDALUMNO,@FECHA,@BHABILITADO";
+                    String strCadSQL = @"spInsertarMatricula @IIDPERIODO,@IIDGRADO,@IIDSECCION,@IIDALUMNO";
                     SqlCommand comando = new SqlCommand(strCadSQL, conexion);
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.Parameters.AddWithValue("@IIDPERIODO", m.IIDPERIODO);
                     comando.Parameters.AddWithValue("@IIDGRADO", m.IIDGRADO);
                     comando.Parameters.AddWithValue("@IIDSECCION", m.IIDSECCION);
                     comando.Parameters.AddWithValue("@IIDALUMNO", m.IIDALUMNO);
-                    comando.Parameters.AddWithValue("@FECHA", m.FECHA);
-                    comando.Parameters.AddWithValue("@BHABILITADO", m.BHABILITADO);
-                    resultado = comando.ExecuteNonQuery();
+                    //comando.Parameters.AddWithValue("@FECHA", m.FECHA);
+                    //comando.Parameters.AddWithValue("@BHABILITADO", m.BHABILITADO);
+                    //resultado = comando.ExecuteNonQuery();
+                    SqlDataReader myReader;
+                    myReader = comando.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(myReader);
+                    if (dt.Rows.Count == 1)
+                    {
+                        DataRow row = dt.Rows[0];
+                        resultado = int.Parse(row[0].ToString());
+                    }
                     conexion.Close();
                     return resultado;
                 }
@@ -488,8 +551,14 @@ namespace DConexionBase3
 			return obtenerTablaGenerico(strCadSQL);
 		}
 
+        public DataTable obtenerPeriodoGradoCurso(MatriculaModels matricula)
+        {
+            //var lista = bd.PeriodoGradoCurso.Where(p => p.IIDPERIODO.Equals(matricula.IIDPERIODO) && p.IIDGRADO.Equals(matricula.IIDGRADO)).Select(p => p.IIDCURSO);
+            string strCadSQL = @"SELECT * FROM PeriodoGradoCurso WHERE IIDPERIODO="+ matricula.IIDPERIODO + " AND IIDGRADO=" + matricula.IIDGRADO;
+            return obtenerTablaGenerico(strCadSQL);
+        }
 
-		public DataTable obtenerAlumnos(int sexo)
+        public DataTable obtenerAlumnos(int sexo)
 		{
 			string strCadSQL = @"SELECT * FROM Alumno WHERE BHABILITADO=1 AND IIDSEXO=" + sexo;
 			return obtenerTablaGenerico(strCadSQL);
