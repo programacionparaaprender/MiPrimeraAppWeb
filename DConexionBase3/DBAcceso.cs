@@ -696,7 +696,9 @@ namespace DConexionBase3
                 using (SqlConnection conexion = new SqlConnection(cadenaConexion))
                 {
                     conexion.Open();
-                    SqlCommand comando = new SqlCommand(storeProcedure, conexion);
+                    SqlCommand comando = new SqlCommand();
+                    comando.Connection = conexion;
+                    comando.CommandText = storeProcedure;
                     comando.CommandType = CommandType.StoredProcedure;
                     foreach (KeyValuePair<string, object> entry in variables)
                     {   
