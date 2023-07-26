@@ -104,11 +104,18 @@ namespace MiTerceraAppWeb.Controllers
         {
             try
             {
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                GradoSeccion grad = bd.GradoSeccion.Where(p => p.IID.Equals(IIDGRADOSECCION)).First();
+                matricula.IIDGRADO = grad.IIDGRADO;
+                matricula.IIDSECCION = grad.IIDSECCION;
+
+
                 DBAcceso acceso = new DBAcceso();
                 MatriculaModels matriculamodels = new MatriculaModels();
                 matriculamodels.IIDGRADO = matricula.IIDGRADO;
                 matriculamodels.IIDSECCION = matricula.IIDSECCION;
                 matriculamodels.IIDPERIODO = matricula.IIDPERIODO;
+                matriculamodels.IIDALUMNO = matricula.IIDALUMNO;
                 int IID = matricula.IIDMATRICULA;
                 if (IID == 0)
                 {
@@ -134,7 +141,7 @@ namespace MiTerceraAppWeb.Controllers
                 }
                 int resultado = 1;
                 return Json(resultado, JsonRequestBehavior.AllowGet);
-            
+            }
             catch (Exception ex)
             {
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
@@ -150,7 +157,7 @@ namespace MiTerceraAppWeb.Controllers
                 int IID = matricula.IIDMATRICULA;
                 matricula.IIDGRADO = grad.IIDGRADO;
                 matricula.IIDSECCION = grad.IIDSECCION;
-                
+               
                 using (var transaccion=new TransactionScope())
                 {
                     if (IID == 0)

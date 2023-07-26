@@ -23,3 +23,6 @@
 
 ### recuperar id de un registro que hice
 https://es.stackoverflow.com/questions/193730/c%C3%B3mo-recuperar-el-id-de-un-registro-que-reci%C3%A9n-hice-en-sql
+
+### corregir error No se encontró el procedimiento almacenado spInsertarMatricula
+>- https://www.demo2s.com/csharp/csharp-commandtype-storedprocedure.html

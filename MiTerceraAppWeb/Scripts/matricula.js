@@ -76,9 +76,10 @@ function agregar() {
 
                 frm.append('IIDMATRICULA', IIDMATRICULA);
                 frm.append('IIDPERIODO', IIDPERIODO);
-                frm.append('IIDGRADOSECCION', IIDGRADOSECCION);
+                //frm.append('IIDSECCION', IIDGRADOSECCION);
                 frm.append('IIDALUMNO', IIDALUMNO);
                 frm.append('BHABILITADO', 1);
+                rm.append('IIDGRADOSECCION', IIDGRADOSECCION);
                 $.ajax({
                     type: "POST",
                     url: url + "/guardarDatos",

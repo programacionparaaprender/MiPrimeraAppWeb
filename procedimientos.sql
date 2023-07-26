@@ -1,5 +1,7 @@
 ﻿
 
+use SistemaMatricula;
+
 create procedure spInsertarMatricula 
 @IIDPERIODO int, @IIDGRADO int, @IIDSECCION int , @IIDALUMNO int
 as

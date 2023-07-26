@@ -26,8 +26,10 @@ namespace DConexionBase3
                 using (SqlConnection conexion = new SqlConnection(cadenaConexion))
                 {
                     conexion.Open();
-                    String strCadSQL = @"spInsertarDetalleMatricula @IIDMATRICULA,@IIDCURSO,@NOTA1,@NOTA2,@NOTA3,@NOTA4, @PROMEDIO";
-                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    string strCadSQL = "spInsertarDetalleMatricula";
+                    SqlCommand comando = new SqlCommand();
+                    comando.Connection = conexion;
+                    comando.CommandText = strCadSQL;
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.Parameters.AddWithValue("@IIDMATRICULA", m.IIDMATRICULA);
                     comando.Parameters.AddWithValue("@IIDCURSO", m.IIDCURSO);
@@ -88,8 +90,12 @@ namespace DConexionBase3
                 using (SqlConnection conexion = new SqlConnection(cadenaConexion))
                 {
                     conexion.Open();
-                    String strCadSQL = @"spInsertarMatricula @IIDPERIODO,@IIDGRADO,@IIDSECCION,@IIDALUMNO";
-                    SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    string strCadSQL = @"SistemaMatricula.dbo.spInsertarMatricula @IIDPERIODO,@IIDGRADO,@IIDSECCION,@IIDALUMNO";
+                    //SqlCommand comando = new SqlCommand(strCadSQL, conexion);
+                    SqlCommand comando = new SqlCommand();
+                    comando.Connection = conexion;
+                    comando.CommandText = "spInsertarMatricula";
+
                     comando.CommandType = CommandType.StoredProcedure;
                     comando.Parameters.AddWithValue("@IIDPERIODO", m.IIDPERIODO);
                     comando.Parameters.AddWithValue("@IIDGRADO", m.IIDGRADO);
