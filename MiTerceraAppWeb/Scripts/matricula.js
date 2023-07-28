@@ -47,6 +47,25 @@ function abrirModal(IID = 0) {
             obtenerPorId('cboGradoSeccion').value = data[0].IIDGRADOSECCION;
             obtenerPorId('cboAlumno').value = data[0].IIDALUMNO;
         });
+        $.get(url + '/Cursos?iidmatricula=' + IID, function(data){
+            var contenido = "<tbody>";
+            for(var i=0; i<data.length; i++){
+                contenido += '<tr>';
+                contenido += '<td>';
+                if(data[i].bhabilitado == 1){
+                    contenido += "<input class='checkbox' type='checkbox' id'"+data[i].IIDCURSO+"' checked='true' />";
+                }else {
+                    contenido += "<input type='checkbox' />";
+                }
+                contenido += '</td>';
+                contenido += '<td>';
+                contenido += data[i].NOMBRE;
+                contenido += '</td>';
+                contenido += '</tr>';
+            }
+            contenido += "</tbody>";
+            obtenerPorId('tablaCurso').innerHTML = contenido;
+        });
     }
 }
 
@@ -79,7 +98,10 @@ function agregar() {
                 //frm.append('IIDSECCION', IIDGRADOSECCION);
                 frm.append('IIDALUMNO', IIDALUMNO);
                 frm.append('BHABILITADO', 1);
-                rm.append('IIDGRADOSECCION', IIDGRADOSECCION);
+                frm.append('IIDGRADOSECCION', IIDGRADOSECCION);
+
+                var checkbox = document.getElementsByClassName("checkbox");
+
                 $.ajax({
                     type: "POST",
                     url: url + "/guardarDatos",

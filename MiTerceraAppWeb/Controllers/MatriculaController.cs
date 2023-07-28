@@ -42,6 +42,19 @@ namespace MiTerceraAppWeb.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult obtenerMatricula(int iidmatricula)
+        {
+            Miconexion3DataContext bd = new Miconexion3DataContext();
+            var lista = bd.Matricula.Where(p=>p.IIDMATRICULA == iidmatricula).
+            Select(p=> new{
+                IIDMATRICULA = (int)p.IIDMATRICULA,
+                IIDPERIODO = (int)p.IIDPERIODO,
+                IIDSECCION = (int)p.IIDSECCION,
+                IIDALUMNO = (int)p.IIDALUMNO
+            });
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult recuperarInformacion(int id)
         {
             Miconexion3DataContext bd = new Miconexion3DataContext();
@@ -57,6 +70,21 @@ namespace MiTerceraAppWeb.Controllers
                             ma.IIDALUMNO
                         };
             
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Cursos(int iidmatricula)
+        {
+            Miconexion3DataContext bd = new Miconexion3DataContext();
+            var lista = (from detalle in bd.DetalleMatricula
+                         join curso in bd.Curso
+                         on detalle.IIDCURSO equals curso.IIDCURSO
+                         where detalle.IIDMATRICULA.Equals(iidmatricula)
+                         select new {
+                             detalle.IIDMATRICULA,
+                             curso.IIDCURSO,
+                             curso.NOMBRE,
+                             detalle.bhabilitado
+                         }).ToList();
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
