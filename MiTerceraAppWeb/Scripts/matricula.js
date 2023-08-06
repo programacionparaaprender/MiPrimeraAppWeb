@@ -53,9 +53,9 @@ function abrirModal(IID = 0) {
                 contenido += '<tr>';
                 contenido += '<td>';
                 if(data[i].bhabilitado == 1){
-                    contenido += "<input class='checkbox' type='checkbox' id'"+data[i].IIDCURSO+"' checked='true' />";
+                    contenido += "<input class='checkbox' type='checkbox' id='"+data[i].IIDCURSO+"' checked='true' />";
                 }else {
-                    contenido += "<input type='checkbox' />";
+                    contenido += "<input class='checkbox' type='checkbox' id='" + data[i].IIDCURSO +"' />";
                 }
                 contenido += '</td>';
                 contenido += '<td>';
@@ -101,7 +101,15 @@ function agregar() {
                 frm.append('IIDGRADOSECCION', IIDGRADOSECCION);
 
                 var checkbox = document.getElementsByClassName("checkbox");
-
+                var valorAEnviar;
+                for (let check of checkbox) {
+                    if (check.checked) {
+                        valorAEnviar += check.id;
+                        valorAEnviar += "$";
+                    }
+                }
+                valorAEnviar = valorAEnviar.substring(0, valorAEnviar.length - 1);
+                frm.append('valorAEnviar', valorAEnviar);
                 $.ajax({
                     type: "POST",
                     url: url + "/guardarDatos",

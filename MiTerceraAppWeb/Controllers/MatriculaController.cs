@@ -128,7 +128,7 @@ namespace MiTerceraAppWeb.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult guardarDatos(Matricula matricula, int IIDGRADOSECCION)
+        public JsonResult guardarDatos(Matricula matricula, int IIDGRADOSECCION, string valorAEnviar)
         {
             try
             {
@@ -165,7 +165,31 @@ namespace MiTerceraAppWeb.Controllers
                 }
                 else
                 {
-
+                    using (var transaccion = new TransactionScope())
+                    {
+                        //Editar
+                        Matricula oMatricula = bd.Matricula.Where(p => p.IIDMATRICULA == matricula.IIDMATRICULA).First();
+                        oMatricula.IIDPERIODO = matricula.IIDPERIODO;
+                        oMatricula.IIDGRADO = matricula.IIDGRADO;
+                        oMatricula.IIDSECCION = matricula.IIDSECCION;
+                        oMatricula.IIDALUMNO = matricula.IIDALUMNO;
+                        //detalle
+                        var lista = bd.DetalleMatricula.Where(p => p.IIDMATRICULA == matricula.IIDMATRICULA);
+                        foreach (DetalleMatricula odetalle in lista)
+                        {
+                            odetalle.bhabilitado = 0;
+                        }
+                        string[] valores = valorAEnviar.Split('$');
+                        foreach (string valor in valores)
+                        {
+                            DetalleMatricula odet = bd.DetalleMatricula.Where(p => p.IIDMATRICULA == matricula.IIDMATRICULA
+                            && p.IIDCURSO == int.Parse(valor)).First();
+                            odet.bhabilitado = 1;
+                        }
+                        bd.SubmitChanges();
+                        transaccion.Complete();
+                    }
+                    
                 }
                 int resultado = 1;
                 return Json(resultado, JsonRequestBehavior.AllowGet);
