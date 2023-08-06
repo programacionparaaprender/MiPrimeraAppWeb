@@ -102,20 +102,15 @@ function agregar() {
                 frm.append('BHABILITADO', 1);
                 frm.append('IIDGRADOSECCION', IIDGRADOSECCION);
 
-                //var checkbox = document.getElementsByClassName("checkbox");
-                var valorAEnviar;
-                //for (let check of checkbox) {
-                //    if (check.checked) {
-                //        valorAEnviar += check.name;
-                //        valorAEnviar += "$";
-                //    }
-                //}
-                $("input:checkbox[class^='checkbox']").each(function (index, e) {
-                    if ($("input:checkbox[name^='checkbox']").is(":checked")) {
-                        valorAEnviar += $("input:checkbox[name^='checkbox']").attr("id");
+                var checkbox = document.getElementsByClassName("checkbox");
+                var valorAEnviar = '';
+                for (let check of checkbox) {
+                    if (check.checked) {
+                        valorAEnviar += check.id;
                         valorAEnviar += "$";
-                    } // if
-                });
+                    }
+                }
+                
 
                 valorAEnviar = valorAEnviar.substring(0, valorAEnviar.length - 1);
                 frm.append('valorAEnviar', valorAEnviar);
