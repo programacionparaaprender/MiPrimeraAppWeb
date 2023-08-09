@@ -7,6 +7,7 @@ using MiTerceraAppWeb.Models;
 using System.Data;
 using DConexionBase3;
 using Models;
+using System.Activities.Expressions;
 
 namespace MiTerceraAppWeb.Controllers
 {
@@ -134,8 +135,25 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				DBAcceso db = new DBAcceso();
-				int resultado = (curso.IIDCURSO == 0) ?db.insertarCurso(curso):db.actualizarCurso(curso);
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                DBAcceso db = new DBAcceso();
+                int nveces = 0;
+                nveces = bd.Curso.Where(p => p.NOMBRE.Equals(curso.NOMBRE) && curso.BHABILITADO == 1).Count();
+				int resultado = 0;
+                if (curso.IIDCURSO == 0) {
+                    if(nveces == 0)
+					{
+                        resultado = db.insertarCurso(curso);
+                    }else
+					{
+						resultado = -1;
+					}
+                }
+				else{
+                    resultado = db.actualizarCurso(curso);
+                }
+
+                    
 
 				return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 

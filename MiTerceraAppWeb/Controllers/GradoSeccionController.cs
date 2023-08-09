@@ -103,10 +103,23 @@ namespace MiTerceraAppWeb.Controllers
             {
                 Miconexion3DataContext bd = new Miconexion3DataContext();
                 int IID = gradoSeccion.IID;
+                int nveces = 0;
+                nveces = bd.GradoSeccion.Where(p => p.IIDGRADO.Equals(gradoSeccion.IIDGRADO) 
+                && p.IIDSECCION.Equals(gradoSeccion.IIDSECCION)
+                && p.BHABILITADO == 1).Count();
+                int resultado = 0;
                 if (IID == 0)
                 {
-                    bd.GradoSeccion.InsertOnSubmit(gradoSeccion);
-                    bd.SubmitChanges();
+                    if (nveces == 0)
+                    {
+                        bd.GradoSeccion.InsertOnSubmit(gradoSeccion);
+                        bd.SubmitChanges();
+                        resultado = 1;
+                    }else
+                    {
+                        resultado = -1;
+                    }
+                    
                 }
                 else
                 {
@@ -114,8 +127,8 @@ namespace MiTerceraAppWeb.Controllers
                     update.IIDGRADO = gradoSeccion.IIDGRADO;
                     update.IIDSECCION = gradoSeccion.IIDSECCION;
                     bd.SubmitChanges();
+                    resultado = 1;
                 }
-                int resultado = 1;
                 return Json(resultado, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -102,8 +102,26 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				DBAcceso db = new DBAcceso();
-				int resultado = (periodo.IIDPERIODO == 0) ? db.insertarPeriodo(periodo) : db.actualizarPeriodo(periodo);
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                DBAcceso db = new DBAcceso();
+				int resultado = 0;
+                if (periodo.IIDPERIODO == 0)
+				{
+                    int nveces = 0;
+                    nveces = bd.Periodo.Where(p => p.NOMBRE.Equals(periodo.NOMBRE) && periodo.BHABILITADO == 1).Count();
+					if(nveces == 0)
+					{
+                        resultado = db.insertarPeriodo(periodo);
+                    }
+					else
+					{
+                        resultado = -1;
+                    }
+                }
+                else
+				{
+                    resultado = db.actualizarPeriodo(periodo);
+                }
 				return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 			}
 			catch (Exception ex)

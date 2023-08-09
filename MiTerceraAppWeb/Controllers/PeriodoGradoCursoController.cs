@@ -118,11 +118,26 @@ namespace MiTerceraAppWeb.Controllers
             try
             {
                 Miconexion3DataContext bd = new Miconexion3DataContext();
+                int nveces = 0;
+                nveces = bd.PeriodoGradoCurso.Where(p =>
+                p.IIDPERIODO.Equals(periodoGradoCurso.IIDPERIODO)
+                && p.IIDGRADO.Equals(periodoGradoCurso.IIDGRADO)
+                && p.IIDCURSO.Equals(periodoGradoCurso.IIDCURSO)
+                && p.BHABILITADO == 1).Count();
                 int IID = periodoGradoCurso.IID;
+                int resultado = 0;
                 if (IID == 0)
                 {
-                    bd.PeriodoGradoCurso.InsertOnSubmit(periodoGradoCurso);
-                    bd.SubmitChanges();
+                    if (nveces == 0)
+                    {
+                        bd.PeriodoGradoCurso.InsertOnSubmit(periodoGradoCurso);
+                        bd.SubmitChanges();
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        resultado = -1;
+                    }
                 }
                 else
                 {
@@ -131,8 +146,9 @@ namespace MiTerceraAppWeb.Controllers
                     update.IIDGRADO = periodoGradoCurso.IIDGRADO;
                     update.IIDCURSO = periodoGradoCurso.IIDCURSO;
                     bd.SubmitChanges();
+                    resultado = 1;
                 }
-                int resultado = 1;
+                
                 return Json(resultado, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -78,7 +78,10 @@ function agregar() {
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        if (data != 0) {
+                        if (data == -1) {
+                            alert('Ya existe registro.');
+                        }
+                        else if (data != 0) {
                             alert('guardado con exito.');
                             listar();
                             document.getElementById('btnCancelar').click();

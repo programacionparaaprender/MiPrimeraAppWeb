@@ -154,6 +154,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\periodo.js" />
     <Content Include="Scripts\periodogradocurso.js" />
+    <Content Include="Scripts\rolpagina.js" />
     <Content Include="Scripts\seccion.js" />
     <Content Include="Scripts\sumar.js" />
     <Content Include="Scripts\tabla.js" />
@@ -171,6 +172,7 @@
     <Compile Include="Controllers\PeriodoController.cs" />
     <Compile Include="Controllers\PeriodoGradoCursoController.cs" />
     <Compile Include="Controllers\RepasoHTMLController.cs" />
+    <Compile Include="Controllers\RolPaginaController.cs" />
     <Compile Include="Controllers\SeccionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -230,6 +232,7 @@
     <Content Include="Views\PeriodoGradoCurso\Index.cshtml" />
     <Content Include="Views\GradoSeccionAula\Index.cshtml" />
     <Content Include="Views\Matricula\Index.cshtml" />
+    <Content Include="Views\RolPagina\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

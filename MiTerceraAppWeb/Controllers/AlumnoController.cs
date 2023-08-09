@@ -252,14 +252,83 @@ namespace MiTerceraAppWeb.Controllers
 			}
 		}
 
-		[HttpPost]
-		public JsonResult guardarDatos(AlumnoModels alumno)
+        [HttpPost]
+        public JsonResult guardarDatos(Alumno alumno)
+        {
+            try
+            {
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                int nveces = 0;
+                nveces = bd.Alumno.Where(p => p.NOMBRE.Equals(alumno.NOMBRE) && p.APPATERNO.Equals(alumno.APPATERNO) && p.APMATERNO.Equals(alumno.APMATERNO)).Count();
+                //DBAcceso db = new DBAcceso();
+                //alumno.FECHANACIMIENTO = DateTime.Parse(alumno.FECHANACIMIENTOSTRING);
+        
+                int resultado = 0;
+                if (alumno.IIDALUMNO == 0)
+                {
+                    alumno.IIDTIPOUSUARIO = 'A';
+                    if (nveces == 0)
+                    {
+                        bd.Alumno.InsertOnSubmit(alumno);
+                        bd.SubmitChanges();
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        resultado = -1;
+                    }
+                }
+                else
+                {
+                    Alumno update = bd.Alumno.Where(p => p.IIDALUMNO.Equals(alumno.IIDALUMNO)).First();
+                    update.NOMBRE = alumno.NOMBRE;
+                    update.APPATERNO = alumno.APPATERNO;
+                    update.APMATERNO = alumno.APMATERNO;
+                    update.FECHANACIMIENTO = alumno.FECHANACIMIENTO;
+                    update.IIDSEXO = alumno.IIDSEXO;
+                    update.TELEFONOPADRE = alumno.TELEFONOPADRE;
+                    update.TELEFONOMADRE = alumno.TELEFONOMADRE;
+                    update.NUMEROHERMANOS = alumno.NUMEROHERMANOS;
+                    update.BHABILITADO = alumno.BHABILITADO;
+                    update.IIDTIPOUSUARIO = alumno.IIDTIPOUSUARIO;
+                    bd.SubmitChanges();
+                    resultado = 1;
+                }
+
+                return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult { Data = ex.Message, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+        }
+
+        [HttpPost]
+		public JsonResult guardarDatos2(AlumnoModels alumno)
 		{
 			try
 			{
-				DBAcceso db = new DBAcceso();
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                int nveces = 0;
+                nveces = bd.Alumno.Where(p => p.NOMBRE.Equals(alumno.NOMBRE) && p.APPATERNO.Equals(alumno.APPATERNO) && p.APMATERNO.Equals(alumno.APMATERNO)).Count();
+                DBAcceso db = new DBAcceso();
 				alumno.FECHANACIMIENTO = DateTime.Parse(alumno.FECHANACIMIENTOSTRING);
-				int resultado = (alumno.IIDALUMNO == 0) ? db.insertarAlumno(alumno) : db.actualizarAlumno(alumno);
+				int resultado = 0;
+                if (alumno.IIDALUMNO == 0)
+				{
+					if (nveces == 0)
+					{
+                        resultado = db.insertarAlumno(alumno);
+                    }else
+					{
+						resultado = -1;
+					}
+                }
+                else
+				{
+					resultado = db.actualizarAlumno(alumno); 
+                }
+                    
 				return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 			}
 			catch (Exception ex)

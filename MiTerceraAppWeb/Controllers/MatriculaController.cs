@@ -137,7 +137,6 @@ namespace MiTerceraAppWeb.Controllers
                 matricula.IIDGRADO = grad.IIDGRADO;
                 matricula.IIDSECCION = grad.IIDSECCION;
 
-
                 DBAcceso acceso = new DBAcceso();
                 MatriculaModels matriculamodels = new MatriculaModels();
                 matriculamodels.IIDGRADO = matricula.IIDGRADO;
@@ -145,23 +144,38 @@ namespace MiTerceraAppWeb.Controllers
                 matriculamodels.IIDPERIODO = matricula.IIDPERIODO;
                 matriculamodels.IIDALUMNO = matricula.IIDALUMNO;
                 int IID = matricula.IIDMATRICULA;
+                int nveces = 0;
+                nveces = bd.Matricula.Where(p => p.IIDALUMNO.Equals(matriculamodels.IIDALUMNO)
+                && p.IIDPERIODO.Equals(matriculamodels.IIDPERIODO)
+                && p.IIDGRADO.Equals(matriculamodels.IIDGRADO)
+                && p.BHABILITADO == 1).Count();
+                int resultado = 0;
                 if (IID == 0)
                 {
-                    IID = acceso.insertarMatricula(matriculamodels);
-                    var lista = acceso.obtenerPeriodoGradoCurso(matriculamodels);
-                    foreach (DataRow item in lista.Rows)
+                    if (nveces == 0)
                     {
-                        DetalleMatriculaModels dm = new DetalleMatriculaModels();
-                        dm.IIDMATRICULA = IID;
-                        dm.IIDCURSO = int.Parse(item["IIDCURSO"].ToString());
-                        dm.NOTA1 = 0;
-                        dm.NOTA2 = 0;
-                        dm.NOTA3 = 0;
-                        dm.NOTA4 = 0;
-                        dm.PROMEDIO = 0;
-                        dm.bhabilitado = 1;
-                        acceso.insertarDetalleMatricula(dm);
+                        IID = acceso.insertarMatricula(matriculamodels);
+                        var lista = acceso.obtenerPeriodoGradoCurso(matriculamodels);
+                        foreach (DataRow item in lista.Rows)
+                        {
+                            DetalleMatriculaModels dm = new DetalleMatriculaModels();
+                            dm.IIDMATRICULA = IID;
+                            dm.IIDCURSO = int.Parse(item["IIDCURSO"].ToString());
+                            dm.NOTA1 = 0;
+                            dm.NOTA2 = 0;
+                            dm.NOTA3 = 0;
+                            dm.NOTA4 = 0;
+                            dm.PROMEDIO = 0;
+                            dm.bhabilitado = 1;
+                            acceso.insertarDetalleMatricula(dm);
+                        }
+                        resultado = 1;
                     }
+                    else
+                    {
+                        resultado = -1;
+                    }
+                    
                 }
                 else
                 {
@@ -188,10 +202,10 @@ namespace MiTerceraAppWeb.Controllers
                         }
                         bd.SubmitChanges();
                         transaccion.Complete();
+                        resultado = 1;
                     }
                     
                 }
-                int resultado = 1;
                 return Json(resultado, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

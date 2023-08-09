@@ -1,0 +1,113 @@
+
+CREATE TABLE TIPOUSUARIO(
+IIDTIPOUSUARIO CHAR(1) PRIMARY KEY,
+NOMBRE VARCHAR(100),
+BHABILITADO INT
+)
+
+INSERT INTO TIPOUSUARIO VALUES ('A','ALUMNO',1)
+INSERT INTO TIPOUSUARIO VALUES ('D','DOCENTE',1)
+
+ALTER TABLE DOCENTE
+ADD IIDTIPOUSUARIO CHAR(1) DEFAULT 'D'
+
+ALTER TABLE DOCENTE
+ADD FOREIGN KEY (IIDTIPOUSUARIO) REFERENCES TIPOUSUARIO(IIDTIPOUSUARIO)
+
+ALTER TABLE ALUMNO
+ADD IIDTIPOUSUARIO CHAR(1) DEFAULT 'A'
+
+ALTER TABLE ALUMNO
+ADD FOREIGN KEY (IIDTIPOUSUARIO) REFERENCES TIPOUSUARIO(IIDTIPOUSUARIO)
+
+create table Rol(
+IIDROL int identity(1,1) primary key,
+NOMBRE varchar(100),
+DESCRIPCION varchar(300),
+BHABILITADO INT
+)
+--------------------------------------------------
+insert into Rol (NOMBRE,DESCRIPCION,BHABILITADO)
+values ('Vista Total','Puede ver todos los formularios',1)
+
+insert into Rol (NOMBRE,DESCRIPCION,BHABILITADO)
+values ('Vista Registro','Puede registrar información',1)
+
+
+insert into Rol (NOMBRE,DESCRIPCION,BHABILITADO)
+values ('Vista Matricula','Puede matricular alumnos',1)
+
+insert into Rol (NOMBRE,DESCRIPCION,BHABILITADO)
+values ('Vista Curso','Permite registrar formularios asociados a un Curso',1)
+
+insert into Rol (NOMBRE,DESCRIPCION,BHABILITADO)
+values ('Vista Asigna','Asigna valores en el sistema',1)
+
+-----------------------------------------------------------
+
+create table Pagina(
+IIDPAGINA int identity(1,1) primary key,
+MENSAJE varchar(100),
+ACCION varchar(50),
+CONTROLADOR varchar(50),
+BHABILITADO int
+)
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Curso','Index','Curso',1)
+
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Periodo','Index','Periodo',1)
+
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Seccion','Index','Seccion',1)
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Alumno','Index','Alumno',1)
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Docente','Index','Docente',1)
+
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Asignar grado y seccion','Index','GradoSeccion',1)
+
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Asignar curso a los grados','Index','PeriodoGradoCurso',1)
+
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Asignar curso a docente','Index','GradoSeccionAula',1)
+
+insert into Pagina(MENSAJE,ACCION,CONTROLADOR,BHABILITADO)
+values ('Matricular','Index','Matricula',1)
+
+
+----------------------------------------------------------------------------
+
+create table RolPagina(
+IIDROL int references Rol(iidrol),
+IIDPAGINA int references Pagina(iidpagina),
+BHABILITADO int,
+primary key(IIDROL,IIDPAGINA)
+)
+
+create table Usuario(
+   IIDUSUARIO int identity(1,1) primary key ,
+   NOMBREUSUARIO  varchar(100),
+   CONTRA varchar(64),
+   TIPOUSUARIO char(1) REFERENCES TIPOUSUARIO(IIDTIPOUSUARIO) ,
+   IID int,
+   IIDROL int references Rol(IIDROL),
+   BHABILITADO int
+)
+
+select * from Docente
+update docente
+set iidtipousuario='D'
+
+update alumno
+set iidtipousuario='A'

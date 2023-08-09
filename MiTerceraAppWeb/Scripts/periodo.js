@@ -120,7 +120,11 @@ function agregar() {
                             listar();
                             document.getElementById('btnCancelar').click();
                         } else {
-                            alert('ocurrio un error.');
+                            if (data == -1) {
+                                alert('Ya existe.');
+                            } else {
+                                alert('ocurrio un error.');
+                            }
                         }
                     }
                 });

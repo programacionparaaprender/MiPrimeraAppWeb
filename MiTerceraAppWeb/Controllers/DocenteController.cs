@@ -159,14 +159,55 @@ namespace MiTerceraAppWeb.Controllers
 		}
 
 
-        public JsonResult guardarDatos(DocenteModels docente)
+        public JsonResult guardarDatos(Docente docente)
         {
             try
             {
+                Miconexion3DataContext bd = new Miconexion3DataContext();
+                int nveces = 0;
+                nveces = bd.Docente.Where(p => p.NOMBRE.Equals(docente.NOMBRE) 
+				&& p.APPATERNO.Equals(docente.APPATERNO) 
+				&& p.APMATERNO.Equals(docente.APMATERNO)
+				&& p.BHABILITADO == 1).Count();
+
                 DBAcceso db = new DBAcceso();
 				//docente.FOTO = Convert.FromBase64String(docente.FOTOSTRING);
-                docente.FECHACONTRATO = DateTime.Parse(docente.FECHACONTRATOSTRING);
-                int resultado = (docente.IIDDOCENTE == 0) ? db.insertarDocente(docente) : db.actualizarDocente(docente);
+                //docente.FECHACONTRATO = DateTime.Parse(docente.FECHACONTRATOSTRING);
+				int resultado = 0;
+				if (docente.IIDDOCENTE == 0)
+				{
+					if(nveces == 0)
+					{
+                        //resultado = db.insertarDocente(docente);
+                        docente.IIDTIPOUSUARIO = 'D';
+                        bd.Docente.InsertOnSubmit(docente);
+                        bd.SubmitChanges();
+                        resultado = 1;
+                    } else
+					{
+						resultado = -1;
+					}
+					
+                }
+                else
+				{
+                    //resultado = db.actualizarDocente(docente);
+                    Docente update = bd.Docente.Where(p => p.IIDDOCENTE.Equals(docente.IIDDOCENTE)).First();
+                    update.NOMBRE = docente.NOMBRE;
+                    update.APPATERNO = docente.APPATERNO;
+                    update.APMATERNO = docente.APMATERNO;
+                    update.FECHACONTRATO = docente.FECHACONTRATO;
+                    update.IIDSEXO = docente.IIDSEXO;
+                    update.TELEFONOCELULAR = docente.TELEFONOCELULAR;
+                    update.TELEFONOFIJO = docente.TELEFONOFIJO;
+                    update.EMAIL = docente.EMAIL;
+                    update.DIRECCION = docente.DIRECCION;
+                    update.BHABILITADO = docente.BHABILITADO;
+                    update.IIDTIPOUSUARIO = docente.IIDTIPOUSUARIO;
+                    bd.SubmitChanges();
+                    resultado = 1;
+                }
+
                 return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             catch (Exception ex)

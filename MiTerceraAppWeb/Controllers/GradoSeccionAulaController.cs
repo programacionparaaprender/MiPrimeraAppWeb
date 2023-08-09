@@ -160,24 +160,39 @@ namespace MiTerceraAppWeb.Controllers
             {
                 Miconexion3DataContext bd = new Miconexion3DataContext();
                 int IID = gradoSeccionAula.IID;
+                int nveces = 0;
+                nveces = bd.GradoSeccionAula.Where(p => 
+                p.IIDPERIODO.Equals(gradoSeccionAula.IIDPERIODO)
+                && p.IIDGRADOSECCION.Equals(gradoSeccionAula.IIDGRADOSECCION)
+                && p.IIDCURSO.Equals(gradoSeccionAula.IIDCURSO)
+                && p.IIDDOCENTE.Equals(gradoSeccionAula.IIDDOCENTE)
+                && p.BHABILITADO == 1).Count();
+                int resultado = 0;
                 if (IID == 0)
                 {
-                    bd.GradoSeccionAula.InsertOnSubmit(gradoSeccionAula);
-                    bd.SubmitChanges();
+                    if(nveces == 0)
+                    {
+                        bd.GradoSeccionAula.InsertOnSubmit(gradoSeccionAula);
+                        bd.SubmitChanges();
+                        resultado = 1;
+                    }
+                    else
+                    {
+                        resultado = 0;
+                    }
                 }
                 else
                 {
                     GradoSeccionAula update = bd.GradoSeccionAula.Where(p => p.IID.Equals(IID)).First();
-
                     update.IIDPERIODO = gradoSeccionAula.IIDPERIODO;
                     update.IIDGRADOSECCION = gradoSeccionAula.IIDGRADOSECCION;
                     update.IIDCURSO = gradoSeccionAula.IIDCURSO;
                     update.IIDAULA = gradoSeccionAula.IIDAULA;
                     update.IIDDOCENTE = gradoSeccionAula.IIDDOCENTE;
-
                     bd.SubmitChanges();
+                    resultado = 1;
                 }
-                int resultado = 1;
+                 
                 return Json(resultado, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
