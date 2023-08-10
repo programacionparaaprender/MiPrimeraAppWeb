@@ -5,10 +5,9 @@ using System.Web;
 
 namespace Models
 {
-	public class Sexo
+	public class ModalidadContratoModels
 	{
 		public int IID { get; set; }
-		public int IIDSEXO { get; set; }
 		public string NOMBRE { get; set; }
 	}
 }

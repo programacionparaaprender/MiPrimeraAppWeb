@@ -227,7 +227,7 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<Sexo> sexos = new List<Sexo>();
+				List<SexoModels> sexos = new List<SexoModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerSexo();
 				foreach (DataRow row in dt.Rows)
@@ -235,9 +235,9 @@ namespace MiTerceraAppWeb.Controllers
 					int IID = int.Parse(row["IID"].ToString());
 					int IIDSEXO = int.Parse(row["IIDSEXO"].ToString());
 					string NOMBRE = row["NOMBRE"].ToString();
-					Sexo sexo;
-					sexo = new Sexo
-					{
+                    SexoModels sexo;
+					sexo = new SexoModels
+                    {
 						IID = IID,
 						IIDSEXO = IIDSEXO,
 						NOMBRE = NOMBRE

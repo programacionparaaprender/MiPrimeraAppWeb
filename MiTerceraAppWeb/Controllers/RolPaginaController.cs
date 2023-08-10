@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -53,7 +54,7 @@ namespace MiTerceraAppWeb.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult guardarDatos(Rol rol)
+        public JsonResult guardarDatos(Rol rol, string valorAEnviar)
         {
             try
             {
@@ -62,29 +63,46 @@ namespace MiTerceraAppWeb.Controllers
                 int nveces = 0;
                 nveces = bd.Rol.Where(p => p.NOMBRE.Equals(rol.NOMBRE)).Count();
                 int resultado = 0;
-                if (IID == 0)
+                using (var transaccion = new TransactionScope())
                 {
-                    if(nveces == 0)
+                    if (IID == 0)
                     {
-                        bd.Rol.InsertOnSubmit(rol);
-                        bd.SubmitChanges();
-                        resultado = 1;
-                    }else
-                    {
-                        resultado = -1;
-                    }
+                        if(nveces == 0)
+                        {
+                            bd.Rol.InsertOnSubmit(rol);
+                            string[] valores = valorAEnviar.Split('$');
+                            foreach (string valor in valores)
+                            {
+
+                            }
+                            bd.SubmitChanges();
+                            resultado = 1;
+                        }else
+                        {
+                            resultado = -1;
+                        }
                     
+                    }
+                    else
+                    {
+                    
+                            Rol update = bd.Rol.Where(p => p.IIDROL.Equals(IID)).First();
+                            update.NOMBRE = rol.NOMBRE;
+                            update.DESCRIPCION = rol.DESCRIPCION;
+
+                            string[] valores = valorAEnviar.Split('$');
+                            foreach (string valor in valores)
+                            {
+                            
+                            }
+
+                            bd.SubmitChanges();
+                            resultado = 1;
+                            transaccion.Complete();
+                    
+                    }
+
                 }
-                else
-                {
-                    Rol update = bd.Rol.Where(p => p.IIDROL.Equals(IID)).First();
-                    update.NOMBRE = rol.NOMBRE;
-                    update.DESCRIPCION = rol.DESCRIPCION;
-                    bd.SubmitChanges();
-                    resultado = 1;
-                }
-                
-                
                 return Json(resultado, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

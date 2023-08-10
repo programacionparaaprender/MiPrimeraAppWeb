@@ -52,13 +52,13 @@
     <Compile Include="DetalleMatriculaModels.cs" />
     <Compile Include="DocenteModels.cs" />
     <Compile Include="MatriculaModels.cs" />
-    <Compile Include="ModalidadContrato.cs" />
+    <Compile Include="ModalidadContratoModels.cs" />
     <Compile Include="PeriodoGradoCursoModels.cs" />
     <Compile Include="PeriodoModels.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeccionModels.cs" />
-    <Compile Include="Sexo.cs" />
+    <Compile Include="SexoModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

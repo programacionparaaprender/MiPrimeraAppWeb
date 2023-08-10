@@ -26,16 +26,16 @@ namespace MiTerceraAppWeb.Controllers
 		{
 			try
 			{
-				List<ModalidadContrato> modalidadContratos = new List<ModalidadContrato>();
+				List<ModalidadContratoModels> modalidadContratos = new List<ModalidadContratoModels>();
 				DBAcceso db = new DBAcceso();
 				DataTable dt = db.obtenerModalidadContrato();
 				foreach (DataRow row in dt.Rows)
 				{
 					int IID = int.Parse(row["IID"].ToString());
 					string NOMBRE = row["NOMBRE"].ToString();
-					ModalidadContrato modalidadContrato;
-					modalidadContrato = new ModalidadContrato
-					{
+                    ModalidadContratoModels modalidadContrato;
+					modalidadContrato = new ModalidadContratoModels
+                    {
 						IID = IID,
 						NOMBRE = NOMBRE
 					};

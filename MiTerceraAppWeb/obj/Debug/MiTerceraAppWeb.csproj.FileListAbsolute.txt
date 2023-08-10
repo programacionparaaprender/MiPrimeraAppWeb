@@ -77,8 +77,4 @@ C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\es\System.We
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\es\System.Web.Mvc.resources.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.dll
 C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.pdb
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\DConexionBase3.dll.config
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\bin\Models.dll.config
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.csproj.AssemblyReference.cache
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.csproj.CoreCompileInputs.cache
-C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.csproj.CopyComplete
+C:\Users\luis1\Documents\htdocs\MiPrimeraAppWeb\MiTerceraAppWeb\obj\Debug\MiTerceraAppWeb.csprojResolveAssemblyReference.cache
