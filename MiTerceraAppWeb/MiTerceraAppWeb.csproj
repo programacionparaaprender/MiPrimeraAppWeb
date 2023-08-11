@@ -234,6 +234,7 @@
     <Content Include="Views\GradoSeccionAula\Index.cshtml" />
     <Content Include="Views\Matricula\Index.cshtml" />
     <Content Include="Views\RolPagina\Index.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -243,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DConexionBase3\DConexionBase3.csproj">
