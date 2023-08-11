@@ -16,38 +16,61 @@ function listar() {
 
 
 function abrirModal(IID = 0) {
-    $.get(url + "/listarPaginas", function (data) {
-        try {
-            var contenido = "<tbody>";
-            for(let dat of data){
-                contenido += '<tr>';
-                contenido += '<td>';
-                if(dat.BHABILITADO == 1){
-                    contenido += "<input class='checkbox' type='checkbox' id='"+dat.IIDPAGINA+"' checked='true' />";
-                } else {
-                    contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA +"' />";
-                }
-                contenido += '</td>';
-                contenido += '<td>';
-                contenido += dat.MENSAJE;
-                contenido += '</td>';
-                contenido += '</tr>';
-            }
-            contenido += "</tbody>";
-            obtenerPorId('tblpagina').innerHTML = contenido;
-        } catch (e) {
-            console.log(e);
-        }
-    });
     if (IID == 0) {
         borrarDatos();
-        
+        obtenerPorId('tblpagina').innerHTML = '';
+        //$.get(url + "/listarPaginas", function (data) {
+        //    try {
+        //        var contenido = "<tbody>";
+        //        for (let dat of data) {
+        //            contenido += '<tr>';
+        //            contenido += '<td>';
+        //            if (dat.BHABILITADO == 1) {
+        //                contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA + "' checked='true' />";
+        //            } else {
+        //                contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA + "' />";
+        //            }
+        //            contenido += '</td>';
+        //            contenido += '<td>';
+        //            contenido += dat.MENSAJE;
+        //            contenido += '</td>';
+        //            contenido += '</tr>';
+        //        }
+        //        contenido += "</tbody>";
+        //        obtenerPorId('tblpagina').innerHTML = contenido;
+        //    } catch (e) {
+        //        console.log(e);
+        //    }
+        //});
     } else {
         
         $.get(url + "/recuperarInformacion?id=" + IID, function (data) {
             obtenerPorId('txtidrol').value = data[0].IID;
             obtenerPorId('txtnombrerol').value = data[0].NOMBRE;
             obtenerPorId('txtdescripcionrol').value = data[0].DESCRIPCION;
+        });
+        $.get(url + "/listarRolPaginas?id=" + IID, function (data) {
+            try {
+                var contenido = "<tbody>";
+                for (let dat of data) {
+                    contenido += '<tr>';
+                    contenido += '<td>';
+                    if (dat.BHABILITADO == 1) {
+                        contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA + "' checked='true' />";
+                    } else {
+                        contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA + "' />";
+                    }
+                    contenido += '</td>';
+                    contenido += '<td>';
+                    contenido += dat.MENSAJE;
+                    contenido += '</td>';
+                    contenido += '</tr>';
+                }
+                contenido += "</tbody>";
+                obtenerPorId('tblpagina').innerHTML = contenido;
+            } catch (e) {
+                console.log(e);
+            }
         });
     }
 }

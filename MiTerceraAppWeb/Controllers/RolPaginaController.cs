@@ -21,10 +21,24 @@ namespace MiTerceraAppWeb.Controllers
             var lista = bd.Rol.Where(p => p.BHABILITADO.Equals(1)).
                 Select(p => new
                 {
-                    p.IIDROL,
+                    IID= p.IIDROL,
                     p.NOMBRE,
                     p.DESCRIPCION
                 }).ToList();
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult listarRolPaginas(int id)
+        {
+            Miconexion3DataContext bd = new Miconexion3DataContext();
+            var lista = (from paginas in bd.Pagina
+                         select new
+                         {
+                             IID = paginas.IIDPAGINA,
+                             paginas.IIDPAGINA,
+                             paginas.MENSAJE,
+                             BHABILITADO = bd.RolPagina.Where(p=> p.IIDPAGINA == paginas.IIDPAGINA && p.IIDROL == id && p.BHABILITADO == 1).Count() > 0
+                         }).ToList();
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
@@ -34,6 +48,7 @@ namespace MiTerceraAppWeb.Controllers
             var lista = bd.Pagina.Where(p => p.BHABILITADO.Equals(1)).
                 Select(p => new
                 {
+                    IID= p.IIDPAGINA,
                     p.IIDPAGINA,
                     p.MENSAJE,
                     p.BHABILITADO
@@ -71,13 +86,22 @@ namespace MiTerceraAppWeb.Controllers
                         {
                             bd.Rol.InsertOnSubmit(rol);
                             string[] valores = valorAEnviar.Split('$');
-                            foreach (string valor in valores)
+                            if (valorAEnviar.Length > 0)
                             {
-
+                                foreach (string valor in valores)
+                                {
+                                    RolPagina oRolPagina = new RolPagina();
+                                    oRolPagina.IIDROL = rol.IIDROL;
+                                    oRolPagina.IIDPAGINA = int.Parse(valor);
+                                    oRolPagina.BHABILITADO = 1;
+                                    bd.RolPagina.InsertOnSubmit(oRolPagina);
+                                }
                             }
                             bd.SubmitChanges();
                             resultado = 1;
-                        }else
+                            transaccion.Complete();
+                        }
+                        else
                         {
                             resultado = -1;
                         }
@@ -89,11 +113,28 @@ namespace MiTerceraAppWeb.Controllers
                             Rol update = bd.Rol.Where(p => p.IIDROL.Equals(IID)).First();
                             update.NOMBRE = rol.NOMBRE;
                             update.DESCRIPCION = rol.DESCRIPCION;
-
+                            var lista = bd.RolPagina.Where(p => p.IIDROL == rol.IIDROL).ToList();
+                            foreach (RolPagina rolpagina in lista)
+                            {
+                                rolpagina.BHABILITADO = 0;
+                            }
                             string[] valores = valorAEnviar.Split('$');
                             foreach (string valor in valores)
                             {
-                            
+                            int cantidad = bd.RolPagina.Where(p => p.IIDROL == rol.IIDROL && p.IIDPAGINA == int.Parse(valor)).Count();
+                            if (cantidad == 0)
+                            {
+                                RolPagina oRolPagina = new RolPagina();
+                                oRolPagina.IIDROL = rol.IIDROL;
+                                oRolPagina.IIDPAGINA = int.Parse(valor);
+                                oRolPagina.BHABILITADO = 1;
+                                bd.RolPagina.InsertOnSubmit(oRolPagina);
+                            }
+                            else
+                            {
+                                RolPagina rolpagina = bd.RolPagina.Where(p => p.IIDROL == rol.IIDROL && p.IIDPAGINA == int.Parse(valor)).First();
+                                rolpagina.BHABILITADO = 1;
+                            }
                             }
 
                             bd.SubmitChanges();
@@ -117,6 +158,7 @@ namespace MiTerceraAppWeb.Controllers
             var lista = bd.Rol.Where(p => p.IIDROL.Equals(id) && p.BHABILITADO.Equals(1)).
                 Select(p => new
                 {
+                    IID = p.IIDROL,
                     p.IIDROL,
                     p.NOMBRE,
                     p.DESCRIPCION

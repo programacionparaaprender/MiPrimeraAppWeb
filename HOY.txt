@@ -1,0 +1,38 @@
+use SistemaMatricula
+
+select * from usuario
+
+select * from tipoUsuario
+
+
+select * from docente
+select * from alumno
+
+alter table docente
+add bTieneUsuario int 
+
+alter table docente
+add default 0 for bTieneUsuario  
+
+alter table alumno
+add bTieneUsuario int
+
+alter table alumno
+add default 0 for bTieneUsuario  
+
+select * from alumno 
+
+update alumno
+set bTieneUsuario=0
+
+update Docente
+set bTieneUsuario=0
+
+SELECT * FROM Alumno
+SELECT * FROM Docente
+
+alter table alumno
+add default 'A' for IIDTIPOUSUARIO  
+
+UPDATE ALUMNO
+SET IIDTIPOUSUARIO='A'
