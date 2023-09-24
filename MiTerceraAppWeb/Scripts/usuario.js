@@ -48,32 +48,9 @@ function abrirModal(IID = 0) {
         obtenerPorId('lblContra').style.display = "none";
         obtenerPorId('txtcontrasenia').style.display = "none";
         $.get(url + "/recuperarInformacion?id=" + IID, function (data) {
-            obtenerPorId('txtidrol').value = data[0].IID;
-            obtenerPorId('txtnombrerol').value = data[0].NOMBRE;
-            obtenerPorId('txtdescripcionrol').value = data[0].DESCRIPCION;
-        });
-        $.get(url + "/listarRolPaginas?id=" + IID, function (data) {
-            try {
-                var contenido = "<tbody>";
-                for (let dat of data) {
-                    contenido += '<tr>';
-                    contenido += '<td>';
-                    if (dat.BHABILITADO == 1) {
-                        contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA + "' checked='true' />";
-                    } else {
-                        contenido += "<input class='checkbox' type='checkbox' id='" + dat.IIDPAGINA + "' />";
-                    }
-                    contenido += '</td>';
-                    contenido += '<td>';
-                    contenido += dat.MENSAJE;
-                    contenido += '</td>';
-                    contenido += '</tr>';
-                }
-                contenido += "</tbody>";
-                obtenerPorId('tblpagina').innerHTML = contenido;
-            } catch (e) {
-                console.log(e);
-            }
+            obtenerPorId('cboRol').value = data[0].IIDROL;
+            obtenerPorId('txtnombreusuario').value = data[0].NOMBREUSUARIO;
+            obtenerPorId('txtidusuario').value = data[0].IIDUSUARIO;
         });
     }
 }

@@ -35,7 +35,7 @@ namespace MiTerceraAppWeb.Controllers
                                                where usuario.BHABILITADO==1 && usuario.TIPOUSUARIO=='A'
                                                select new UsuarioCLS 
                                                {
-                                                   idUsuario = usuario.IIDUSUARIO,
+                                                   IID = usuario.IIDUSUARIO,
                                                    nombrePersona = alumno.NOMBRE + " " + alumno.APPATERNO + " " + alumno.APMATERNO,
                                                    nombreUsuario = usuario.NOMBREUSUARIO,
                                                    nombreRol = rol.NOMBRE,
@@ -50,14 +50,14 @@ namespace MiTerceraAppWeb.Controllers
                                                 where usuario.BHABILITADO == 1 && usuario.TIPOUSUARIO == 'D'
                                                 select new UsuarioCLS
                                                 {
-                                                    idUsuario = usuario.IIDUSUARIO,
+                                                    IID = usuario.IIDUSUARIO,
                                                     nombrePersona = docente.NOMBRE + " " + docente.APPATERNO + " " + docente.APMATERNO,
                                                     nombreUsuario = usuario.NOMBREUSUARIO,
                                                     nombreRol = rol.NOMBRE,
                                                     nombreTipoEmpleado = "DOCENTE"
                                                 }).ToList();
                 listaUsuario.AddRange(listaDocente);
-                listaUsuario = listaUsuario.OrderBy(p => p.idUsuario).ToList();
+                listaUsuario = listaUsuario.OrderBy(p => p.IID).ToList();
             }
             return Json(listaUsuario, JsonRequestBehavior.AllowGet);
         }
@@ -103,44 +103,17 @@ namespace MiTerceraAppWeb.Controllers
         {
             try
             {
-                List<AlumnoModels> alumnos = new List<AlumnoModels>();
-                DBAcceso db = new DBAcceso();
-                DataTable dt = db.obtenerAlumnoId(id);
-                foreach (DataRow row in dt.Rows)
+                using (Miconexion3DataContext bd = new Miconexion3DataContext())
                 {
-                    int IID = int.Parse(row["IID"].ToString());
-                    int IIDALUMNO = int.Parse(row["IIDALUMNO"].ToString());
-                    string NOMBRE = row["NOMBRE"].ToString();
-                    string APPATERNO = row["APPATERNO"].ToString();
-                    string APMATERNO = row["APMATERNO"].ToString();
-                    DateTime FECHANACIMIENTO = DateTime.Parse(row["FECHANACIMIENTO"].ToString());
-                    int IIDSEXO = int.Parse(row["IIDSEXO"].ToString());
-                    string TELEFONOPADRE = row["TELEFONOPADRE"].ToString();
-                    string TELEFONOMADRE = row["TELEFONOMADRE"].ToString();
-                    int NUMEROHERMANOS = int.Parse(row["NUMEROHERMANOS"].ToString());
-                    int BHABILITADO = int.Parse(row["BHABILITADO"].ToString());
-                    string IIDTIPOUSUARIO = row["IIDTIPOUSUARIO"].ToString();
-                    int bTieneUsuario = int.Parse(row["bTieneUsuario"].ToString());
-                    AlumnoModels periodo;
-                    periodo = new AlumnoModels
-                    {
-                        IID = IID,
-                        IIDALUMNO = IIDALUMNO,
-                        NOMBRE = NOMBRE,
-                        APPATERNO = APPATERNO,
-                        APMATERNO = APMATERNO,
-                        FECHANACIMIENTO = FECHANACIMIENTO,
-                        IIDSEXO = IIDSEXO,
-                        TELEFONOPADRE = TELEFONOPADRE,
-                        TELEFONOMADRE = TELEFONOMADRE,
-                        NUMEROHERMANOS = NUMEROHERMANOS,
-                        BHABILITADO = BHABILITADO,
-                        IIDTIPOUSUARIO = IIDTIPOUSUARIO,
-                        bTieneUsuario = bTieneUsuario
-                    };
-                    alumnos.Add(periodo);
+                    var listaUsuario = bd.Usuario.Where(p => p.IIDUSUARIO.Equals(id)).
+                        Select(p=> new
+                        {
+                            p.IIDUSUARIO,
+                            p.NOMBREUSUARIO,
+                            p.IIDROL
+                        }).ToList();
+                    return new JsonResult { Data = listaUsuario, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                 }
-                return new JsonResult { Data = alumnos, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
             catch (Exception ex)
             {
