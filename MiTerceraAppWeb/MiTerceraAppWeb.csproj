@@ -158,6 +158,7 @@
     <Content Include="Scripts\seccion.js" />
     <Content Include="Scripts\sumar.js" />
     <Content Include="Scripts\tabla.js" />
+    <Content Include="Scripts\usuario.js" />
     <Content Include="Scripts\utilitarios.js" />
     <Content Include="Web.config" />
   </ItemGroup>

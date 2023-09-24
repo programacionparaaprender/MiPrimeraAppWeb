@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index Usuario";
 }
-<h2>Index Periodo</h2>
+<h2>Index Usuario</h2>
 <link href="~/Content/datatables.css" rel="stylesheet" />
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
 <link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
@@ -42,11 +42,11 @@
                         <td><input class="borrar obligatorio" type="text" id="txtnombreusuario" /></td>
                     </tr>
                     <tr>
-                        <td>Ingrese contraseña</td>
+                        <td id="lblContra">Ingrese contraseña</td>
                         <td><input class="borrar obligatorio" type="password" id="txtcontrasenia" /></td>
                     </tr>
                     <tr>
-                        <td>Seleccione persona</td>
+                        <td id="lblPersona">Seleccione persona</td>
                         <td><select class="borrar obligatorio" id="cboPersona"></select></td>
                     </tr>
                     <tr>

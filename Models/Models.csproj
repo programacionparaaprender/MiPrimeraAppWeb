@@ -56,9 +56,11 @@
     <Compile Include="PeriodoGradoCursoModels.cs" />
     <Compile Include="PeriodoModels.cs" />
     <Compile Include="Persona.cs" />
+    <Compile Include="PersonaCLS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeccionModels.cs" />
     <Compile Include="SexoModels.cs" />
+    <Compile Include="UsuarioCLS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
