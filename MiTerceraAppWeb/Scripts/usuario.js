@@ -40,8 +40,6 @@ function abrirModal(IID = 0) {
         obtenerPorId('lblPersona').style.display = "block";
         obtenerPorId('cboPersona').style.display = "block";
 
-        obtenerPorId('tblpagina').innerHTML = '';
-        
     } else {
         obtenerPorId('txtcontrasenia').value = "1";
         obtenerPorId('cboPersona').value = "2";
