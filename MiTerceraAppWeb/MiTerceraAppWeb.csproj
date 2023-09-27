@@ -147,6 +147,7 @@
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\login.js" />
     <Content Include="Scripts\matricula.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
@@ -169,7 +170,9 @@
     <Compile Include="Controllers\DocenteController.cs" />
     <Compile Include="Controllers\GradoSeccionAulaController.cs" />
     <Compile Include="Controllers\GradoSeccionController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MatriculaController.cs" />
+    <Compile Include="Controllers\PaginaPrincipalController.cs" />
     <Compile Include="Controllers\PeriodoController.cs" />
     <Compile Include="Controllers\PeriodoGradoCursoController.cs" />
     <Compile Include="Controllers\RepasoHTMLController.cs" />
@@ -236,6 +239,8 @@
     <Content Include="Views\Matricula\Index.cshtml" />
     <Content Include="Views\RolPagina\Index.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\PaginaPrincipal\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
