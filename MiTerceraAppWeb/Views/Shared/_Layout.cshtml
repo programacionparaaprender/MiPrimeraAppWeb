@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Models;
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -18,54 +19,70 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        @Html.ActionLink("Curso", "Index", "Curso", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Periodo", "Index", "Periodo", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Secciones", "Index", "Seccion", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Repaso", "Index", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Tabla", "Tabla", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Combobox", "ComboBox", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("TablaJS", "TablaJS", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Alumno", "Index", "Alumno", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Docente", "Index", "Docente", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Asignar grado y sección", "Index", "GradoSeccion", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Asignar periodo grado curso", "Index", "PeriodoGradoCurso", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Asignar curso a los grados", "Index", "PeriodoGradoCurso", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Asignar curso a docente", "Index", "GradoSeccionAula", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Matricular", "Index", "Matricula", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Asignar Rol", "Index", "RolPagina", new { area = "" }, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Usuario", "Index", "Usuario", new { area = "" }, new { @class = "nav-link active" })
-                    </li>
+                    @{
+                        int nelementos = 0;
+                        if (Variables.acciones != null)
+                        {
+                            nelementos = Variables.acciones.Count();
+                        }
+                        for (int i = 0; i < nelementos; i++)
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink(Variables.mensaje[i], Variables.acciones[i], Variables.controladores[i], new { area = "" }, new { @class = "navbar-brand" })
+                            </li>
+                        }
+                        
+                    }
+                    @*
+        <li class="nav-item">
+            @Html.ActionLink("Curso", "Index", "Curso", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Periodo", "Index", "Periodo", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Secciones", "Index", "Seccion", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Repaso", "Index", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Tabla", "Tabla", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Combobox", "ComboBox", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("TablaJS", "TablaJS", "RepasoHTML", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Alumno", "Index", "Alumno", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Docente", "Index", "Docente", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Asignar grado y sección", "Index", "GradoSeccion", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Asignar periodo grado curso", "Index", "PeriodoGradoCurso", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Asignar curso a los grados", "Index", "PeriodoGradoCurso", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Asignar curso a docente", "Index", "GradoSeccionAula", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Matricular", "Index", "Matricula", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Asignar Rol", "Index", "RolPagina", new { area = "" }, new { @class = "nav-link" })
+        </li>
+        <li class="nav-item">
+            @Html.ActionLink("Usuario", "Index", "Usuario", new { area = "" }, new { @class = "nav-link active" })
+        </li>
+                    *@
                     <li class="nav-item">
                         @Html.ActionLink("Cerrar", "Cerrar", "Login", new { area = "" }, new { @class = "nav-link" })
                     </li>

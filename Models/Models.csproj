@@ -61,6 +61,7 @@
     <Compile Include="SeccionModels.cs" />
     <Compile Include="SexoModels.cs" />
     <Compile Include="UsuarioCLS.cs" />
+    <Compile Include="Variables.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

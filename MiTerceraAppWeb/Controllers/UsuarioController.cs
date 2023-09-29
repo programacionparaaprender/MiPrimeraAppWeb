@@ -145,7 +145,7 @@ namespace MiTerceraAppWeb.Controllers
                             char tipo = char.Parse(nombrePersona.Substring(nombrePersona.Length - 2, 1));
                             usuario.TIPOUSUARIO = tipo;
                             bd.Usuario.InsertOnSubmit(usuario);
-                            if (tipo.Equals("A")) {
+                            if (tipo.Equals('A')) {
                                 Alumno oAlumno = bd.Alumno.Where(p => p.IIDALUMNO == usuario.IID).FirstOrDefault();
                                 oAlumno.bTieneUsuario = 1;
                             } else {
