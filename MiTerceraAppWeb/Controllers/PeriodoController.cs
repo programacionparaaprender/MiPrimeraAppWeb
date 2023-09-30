@@ -1,4 +1,5 @@
 ﻿using DConexionBase3;
+using MiTerceraAppWeb.Filters;
 using MiTerceraAppWeb.Models;
 using Models;
 using System;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace MiTerceraAppWeb.Controllers
 {
+    [Seguridad]
     public class PeriodoController : Controller
     {
         // GET: Periodo

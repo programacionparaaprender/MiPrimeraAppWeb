@@ -84,6 +84,54 @@ function eliminar(id) {
     }
 }
 
+function recuperar(idPeriodo, idGradoSeccion) {
+
+    $.get("Matricula/listarCursosPorPeriodoYGrado/?iidPeriodo=" + idPeriodo + "&iidGradoSeccion=" + idGradoSeccion, function (data) {
+        var contenido = "<tbody>";
+        for (var i = 0; i < data.length; i++) {
+            contenido += "<tr>";
+
+            contenido += "<td>";
+
+            contenido += "<input class='checkbox' id=" + data[i].IIDCURSO + " type='checkbox' checked='true' />"
+
+            contenido += "</td>";
+
+            contenido += "<td>";
+            contenido += data[i].NOMBRE;
+            contenido += "</td>";
+
+
+            contenido += "</tr>";
+
+        }
+
+        contenido += "</tbody>";
+        document.getElementById("tablaCurso").innerHTML = contenido;
+    })
+
+}
+
+
+
+var cboPeriodo = document.getElementById("cboPeriodo");
+var cboGradoSeccion = document.getElementById("cboGradoSeccion");
+cboPeriodo.onchange = function () {
+
+    if (cboGradoSeccion.value != "" && cboPeriodo.value != "") {
+
+        recuperar(cboPeriodo.value, cboGradoSeccion.value);
+    }
+
+}
+cboGradoSeccion.onchange = function () {
+    if (cboGradoSeccion.value != "" && cboPeriodo.value != "") {
+
+        recuperar(cboPeriodo.value, cboGradoSeccion.value);
+    }
+
+}
+
 function agregar() {
     try {
         if (datosObligatorios()) {
