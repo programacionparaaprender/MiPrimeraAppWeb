@@ -2,7 +2,7 @@
 
 
 # cursos
->- https://indra.udemy.com/course/c-aspnet-mvc-ajax-json-boostrap-javascript/learn/lecture/15556202#overview
+>- https://udemy.com/course/c-aspnet-mvc-ajax-json-boostrap-javascript/learn/lecture/15556202#overview
 
 ### enlaces importantes
 >- https://datatables.net/examples/data_sources/js_array

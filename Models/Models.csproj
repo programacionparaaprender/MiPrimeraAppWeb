@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlumnoModels.cs" />
+    <Compile Include="CursoCLS.cs" />
     <Compile Include="CursoModels.cs" />
     <Compile Include="DetalleMatriculaModels.cs" />
     <Compile Include="DocenteModels.cs" />

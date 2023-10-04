@@ -21,6 +21,10 @@ namespace MiTerceraAppWeb.Controllers
 
         public ActionResult Cerrar()
         {
+            Variables.acciones = new List<string>();
+            Variables.controladores = new List<string>();
+            Variables.mensaje = new List<string>();
+
             return RedirectToAction("Index");
         }
 
