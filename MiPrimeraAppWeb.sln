@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DConexionBase3", "DConexionBase3\DConexionBase3.csproj", "{8B22F51B-D70B-42EE-A32D-D4640EA748F8}"
 EndProject
@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiTerceraAppWeb", "MiTercer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{E44EFAF3-0EC9-48C2-B16E-717431FF1FF9}"
 	ProjectSection(SolutionItems) = preProject
+		BDMATRICULA.sql = BDMATRICULA.sql
+		clase1ASP.NETMVC.pptx = clase1ASP.NETMVC.pptx
+		Matricula.zip = Matricula.zip
 		procedimientos.sql = procedimientos.sql
 		README.md = README.md
 	EndProjectSection
